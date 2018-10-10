@@ -22,34 +22,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.Part;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import javax.servlet.ServletContext;
 import javax.swing.JComboBox;
 
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -58,9 +39,7 @@ import org.primefaces.model.UploadedFile;
  */
 public class Formatacao {
 
-	private String emailSenha;
-	private String emailUsuario;
-
+	
 	// nova classe
 
 	public static String ConvercaoDataSql(Date data) {
@@ -906,17 +885,7 @@ public class Formatacao {
 			return "nao encontrado";
 	}
 
-	public static int subtrairDatas(Date dataInicial, Date dataFinal) {
-		if (dataInicial==null) {
-			dataInicial = new Date();
-		}
-		DateTime dataI = new DateTime(dataInicial);
-		DateTime dataF = new DateTime(dataFinal);
-		int resultado = 0;
-		//resultado = (int) ((dataFinal.getTime() - dataInicial.getTime()) / 86400000L);
-		resultado = Days.daysBetween(dataI, dataF).getDays();
-		return resultado;
-	}
+	
 	
 	public static int subtrairDatasC(Date dataInicial, Date dataFinal) {
 		Calendar data = Calendar.getInstance();
@@ -1114,115 +1083,11 @@ public class Formatacao {
 
 
 	
-	private class Auth extends Authenticator {
-		@Override
-		protected PasswordAuthentication getPasswordAuthentication() {
-			return new PasswordAuthentication(emailUsuario, emailSenha);
-		}
-	}
+	
 
-	public void enviarEmailProdutos(String para, String cc, String senha, String de, String assunto, String texto,
-			String nomeArquivoFicha, String nomeArquivoContrato, String nomeArquivoRecibo) {
-		int numeroEmail = 1;
-		if (cc.length() > 0) {
-			numeroEmail = numeroEmail + 1;
-		}
-		InternetAddress[] listaEmail = new InternetAddress[numeroEmail];
-		try {
-			if (para.length() > 0) {
-				listaEmail[0] = new InternetAddress(para);
-			}
-			if (cc.length() > 0) {
-				listaEmail[1] = new InternetAddress(cc);
-			}
-		} catch (AddressException ex) {
-			Logger.getLogger(Formatacao.class.getName()).log(Level.SEVERE, null, ex);
-			System.out.println(ex);
-		}
-		try {
-			this.emailUsuario = de;
-			this.emailSenha = senha;
-			Properties p = new Properties();
-			p.put("mail.smtp.host", "smtp.travelmate.com.br");
-			p.put("mail.smtp.port", 587);
-			p.put("mail.smtp.auth", "true");
+	
 
-			Session session = Session.getDefaultInstance(p, new Formatacao.Auth());
-
-			MimeMessage msg = new MimeMessage(session);
-			msg.setFrom(new InternetAddress(de));
-
-			msg.setRecipients(Message.RecipientType.TO, listaEmail);
-
-			msg.setSubject(assunto);
-			// msg.setContent(texto, "text/html");
-			msg.setText(texto);
-
-			MimeMultipart mpRoot = new MimeMultipart("mixed");
-			MimeMultipart mpContent = new MimeMultipart("alternative");
-			MimeBodyPart contentPartRoot = new MimeBodyPart();
-			contentPartRoot.setContent(mpContent);
-			mpRoot.addBodyPart(contentPartRoot);
-
-			// enviando texto
-			MimeBodyPart mbp1 = new MimeBodyPart();
-			mbp1.setText(texto);
-			mpContent.addBodyPart(mbp1);
-			MimeBodyPart mbpAnexoFicha = new MimeBodyPart();
-			MimeBodyPart mbpAnexoContrato = new MimeBodyPart();
-			MimeBodyPart mbpAnexoRecibo = new MimeBodyPart();
-
-			if (nomeArquivoFicha != null) {
-				FileDataSource source = new FileDataSource(nomeArquivoFicha);
-				mbpAnexoFicha.setDisposition(Part.ATTACHMENT);
-				mbpAnexoFicha.setDataHandler(new DataHandler(source));
-				mbpAnexoFicha.setFileName(source.getName());
-				mpContent.addBodyPart(mbpAnexoFicha);
-			}
-
-			if (nomeArquivoContrato != null) {
-				FileDataSource source = new FileDataSource(nomeArquivoContrato);
-				mbpAnexoContrato.setDisposition(Part.ATTACHMENT);
-				mbpAnexoContrato.setDataHandler(new DataHandler(source));
-				mbpAnexoContrato.setFileName(source.getName());
-				mpContent.addBodyPart(mbpAnexoContrato);
-			}
-
-			if (nomeArquivoRecibo != null) {
-				FileDataSource source = new FileDataSource(nomeArquivoRecibo);
-				mbpAnexoRecibo.setDisposition(Part.ATTACHMENT);
-				mbpAnexoRecibo.setDataHandler(new DataHandler(source));
-				mbpAnexoRecibo.setFileName(source.getName());
-				mpContent.addBodyPart(mbpAnexoRecibo);
-			}
-
-			msg.setContent(mpRoot);
-			msg.saveChanges();
-
-			Transport.send(msg);
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage("Email enviado com sucesso", ""));
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
-
-	public void enviarEmailProduto(String para, String cc, String senha, String de, String assunto, String texto,
-			String nomeArquivoFicha, String nomeArquivoContrato, String nomeArquivoRecibo) throws EmailException {
-		SimpleEmail email = new SimpleEmail();
-		email.setHostName("smtp.travelmate.com.br");
-		email.addTo(para);
-		if (!cc.equalsIgnoreCase("")) {
-			email.addTo(cc);
-		}
-		email.setFrom("systm@travelmate.com.br");
-		email.setSubject(assunto);
-		email.setMsg(texto);
-		email.setSmtpPort(587);
-		email.setAuthentication(de, senha);
-		email.send();
-	}
-
+	
 	public static File criarArquivoOrcamento(String html, String idorcamento) throws FileNotFoundException {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
