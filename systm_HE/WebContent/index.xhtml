@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Questionario de Higher Education</title>
+	<link href="resources/css/csslogin.css" rel="stylesheet"
+		type="text/css" />
+</h:head>
+
+<h:body>
+	<h:form id="login">
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<img src="resources/img/carregandoNovo.gif" />
+		</p:dialog>
+		<p:growl id="growl" showDetail="true" sticky="false" life="20000"/>
+		<div align="center">
+		<br></br><br></br><br></br> <br></br> 
+			<img src="resources/img/logoRelatorio.jpg" width="280" />
+			<img src="resources/img/icones_universidades.png" width="60" />
+			<div class="corpo" align="center">
+				<h:panelGrid columns="1" columnClasses="ui-grid-col-4">
+				<br></br><br></br><br></br>
+				</h:panelGrid>
+				<div align="center" >
+					<h:panelGrid columns="1" columnClasses="ui-grid-col-4" style="width: 78%;">
+						<p:inputText value="#{usuarioLogadoMB.login}" placeholder="E-MAIL" style="width:320%"/>
+						<p:commandButton value="ENTRAR" class="botao"  
+							actionListener="#{usuarioLogadoMB.validarUsuario()}"
+							action="#{usuarioLogadoMB.logar()}" title="Entrar" update="growl" style="width:320%;font-size: 14px;height: 35px;border-radius: 2px;">
+						</p:commandButton>                    
+					</h:panelGrid>   
+					<br></br><br></br><br></br> <br></br> 
+				</div>
+			</div>  
+		</div> 
+	</h:form>
+	<h:outputScript library="js" name="index.js" />
+</h:body>
+</html>
