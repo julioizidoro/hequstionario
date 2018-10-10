@@ -118,7 +118,7 @@ public class UsuarioLogadoMB implements Serializable {
 			if (lead == null) {
 				Mensagem.lancarMensagemInfo("Atenção", "Acesso negado");
 			} else {
-				mensagemOlá();
+				mensagemOla();
 				cliente = lead.getCliente();
 				return logar = true;
 			}
@@ -142,7 +142,7 @@ public class UsuarioLogadoMB implements Serializable {
 		return "index";
 	}
 
-	public void mensagemOlá(){
+	public void mensagemOla(){
 		mensagemOla = "Olá " + cliente.getNome();
 	}
 

@@ -22,6 +22,7 @@ import br.com.travelmate.dao.QuestionarioHeDao;
 import br.com.travelmate.dao.TipoContatoDao;
 import br.com.travelmate.managedBean.UsuarioLogadoMB;
 import br.com.travelmate.model.Cliente;
+import br.com.travelmate.model.Lead;
 import br.com.travelmate.model.Leadhistorico;
 import br.com.travelmate.model.Pais;
 import br.com.travelmate.model.Questionariohe;
@@ -57,6 +58,7 @@ public class CadQuestionarioHeMB implements Serializable {
 	private boolean habilitarNivel3 = false;
 	private boolean habilitarNotas = true;
 	private boolean cadastrado = false;
+	private Lead lead;
 
 	@PostConstruct
 	public void init() {
@@ -67,6 +69,7 @@ public class CadQuestionarioHeMB implements Serializable {
 		if (questionarioHe == null) {
 			questionarioHe = new Questionariohe();
 			cliente = usuarioLogadoMB.getCliente();
+			lead = usuarioLogadoMB.getLead();
 		} 
 	}
 
@@ -166,7 +169,7 @@ public class CadQuestionarioHeMB implements Serializable {
 			try {
 				cliente = clienteDao.salvar(cliente);
 				questionarioHe.setCliente(cliente);
-				questionarioHe.setUsuario(usuarioLogadoMB.getLead().getUsuario());
+				questionarioHe.setUsuario(lead.getUsuario());
 				if (questionarioHe.getIdquestionariohe() == null) {
 					questionarioHe.setDataenvio(new Date());
 					questionarioHe.setSituacao("Processo");
