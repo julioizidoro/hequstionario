@@ -202,7 +202,7 @@ public class CadQuestionarioHeMB implements Serializable {
 	public String  validarDados() {
 		String msg = "";
 		if (cliente == null || cliente.getIdcliente() == null) {
-			 msg = msg + "Cliente n√£o informado";
+			 msg = msg + "Cliente n„o informado";
 		}
 		
 		if (questionarioHe.getDiplomas() == null || questionarioHe.getDiplomas().length() <= 0) {
@@ -214,20 +214,20 @@ public class CadQuestionarioHeMB implements Serializable {
 		}
 		
 		if (questionarioHe.getOntuacaotoefl() == null || questionarioHe.getOntuacaotoefl().length() <= 0) {
-			msg = msg + "Informe a Pontua√ß√£o no teste de profici√™ncia ou teste online; \n \n";
+			msg = msg + "Informe a PontuaÁ„o no teste de proficiÍncia ou teste online; \n \n";
 		}
 		
 		if (questionarioHe.getOcupacao1() == null || questionarioHe.getOcupacao1().length() <= 0) {
-			msg = msg + "Informe Descreva suas duas √∫ltima principais ocupa√ß√µes profissionais; \n \n";
+			msg = msg + "Informe Descreva suas duas ˙ltimas principais ocupaÁıes profissionais; \n \n";
 		}
 		
 		
 		if (questionarioHe.getPrograma() == null || questionarioHe.getPrograma().length() <= 0) {
-			msg = msg + "Informe Programa / √Årea de interesse; \n \n";
+			msg = msg + "Informe Programa / ¡rea de interesse; \n \n";
 		}
 		
 		if (questionarioHe.getNivelcertificadointeresse() == null || questionarioHe.getNivelcertificadointeresse().length() <= 0) {
-			msg = msg + "Informe N√≠vel de Certifica√ß√£o de interesse; \n \n";
+			msg = msg + "Informe NÌvel de CertificaÁ„o de interesse; \n \n";
 		}
 		
 		
@@ -246,7 +246,7 @@ public class CadQuestionarioHeMB implements Serializable {
 		
 		
 		if (questionarioHe.getObservacao() == null || questionarioHe.getObservacao().length() <= 0) {
-			msg = msg + "Informe a Observa√ß√µes e parecer do consultor; \n \n";
+			msg = msg + "Informe as ObservaÁıes e parecer do consultor; \n \n";
 		}
 		
 		if (questionarioHe.getPrecisatrabalahar() == null || questionarioHe.getPrecisatrabalahar().length() <= 0) {
@@ -258,7 +258,7 @@ public class CadQuestionarioHeMB implements Serializable {
 		}
 		
 		if (questionarioHe.getVistotrabalho() == null || questionarioHe.getVistotrabalho().length() <= 0) {
-			msg = msg + "Informe 'Tenho interesse em visto de trabalho ap√≥s o curso'; \n \n";
+			msg = msg + "Informe 'Tenho interesse em visto de trabalho apÛs o curso'; \n \n";
 		}
 		return msg;
 	}
@@ -285,12 +285,12 @@ public void salvarHistoricoLead() {
 		leadhistorico.setCliente(cliente);
 		leadhistorico.setDatahistorico(new Date());
 		leadhistorico.setDataproximocontato(new Date());
-		String sql = "Select t From Tipocontato t where t.tipo='Or√ßamento'";
+		String sql = "Select t From Tipocontato t where t.tipo='OrÁamento'";
 		Tipocontato tipocontato;
 		try {
 			tipocontato = tipoContatoDao.consultar(sql);
 			leadhistorico.setTipocontato(tipocontato);
-			leadhistorico.setHistorico("Cadastor de um question√°rio como id: " + questionarioHe.getIdquestionariohe() + ": "
+			leadhistorico.setHistorico("Cadastor de um question·rio como id: " + questionarioHe.getIdquestionariohe() + ": "
 					+ " incluido no dia : " + Formatacao.ConvercaoDataPadrao(new Date()) + ", cliente: " + cliente.getNome());
 			leadhistorico.setTipoorcamento("");
 			leadhistorico.setIdorcamento(0);
