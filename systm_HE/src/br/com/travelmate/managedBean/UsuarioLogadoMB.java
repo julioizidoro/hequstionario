@@ -116,7 +116,7 @@ public class UsuarioLogadoMB implements Serializable {
 		} else {
 			lead = leadDao.consultar("SELECT l FROM Lead l WHERE l.cliente.email like '%"+ login +"%'");
 			if (lead == null) {
-				Mensagem.lancarMensagemInfo("AtenÃ§Ã£o", "Acesso negado");
+				Mensagem.lancarMensagemInfo("Atenção", "Acesso negado");
 			} else {
 				mensagemOla();
 				cliente = lead.getCliente();
