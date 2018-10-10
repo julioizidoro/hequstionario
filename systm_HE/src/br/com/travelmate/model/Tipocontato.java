@@ -30,10 +30,6 @@ public class Tipocontato implements Serializable {
     @Size(max = 50)
     @Column(name = "tipo")
     private String tipo;
-    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "tipocontato")
-    private List<Leadhistorico> leadhistoricoList; 
-    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "tipocontato")
-    private List<Lead> leadList;
 
     public Tipocontato() {
     }
@@ -56,22 +52,6 @@ public class Tipocontato implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    public List<Leadhistorico> getLeadhistoricoList() {
-        return leadhistoricoList;
-    }
-
-    public void setLeadhistoricoList(List<Leadhistorico> leadhistoricoList) {
-        this.leadhistoricoList = leadhistoricoList;
-    }
- 
-    public List<Lead> getLeadList() {
-        return leadList;
-    }
-
-    public void setLeadList(List<Lead> leadList) {
-        this.leadList = leadList;
     }
 
     @Override

@@ -3,6 +3,7 @@ package br.com.travelmate.model;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -66,12 +68,21 @@ public class Lead implements Serializable {
 	@JoinColumn(name = "produtos_idprodutos", referencedColumnName = "idprodutos")
 	@ManyToOne(optional = false)
 	private Produtos produtos;
+	@JoinColumn(name = "publicidade_idpublicidade", referencedColumnName = "idpublicidade")
+	@ManyToOne(optional = false)
+	private Publicidade publicidade;
+	@JoinColumn(name = "tipocontato_idtipocontato", referencedColumnName = "idtipocontato")
+	@ManyToOne(optional = false)
+	private Tipocontato tipocontato;
 	@JoinColumn(name = "unidadenegocio_idunidadeNegocio", referencedColumnName = "idunidadeNegocio")
 	@ManyToOne(optional = false)
 	private Unidadenegocio unidadenegocio;
 	@JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
 	@ManyToOne(optional = false)
 	private Usuario usuario;
+	@JoinColumn(name = "motivocancelamento_idmotivocancelamento", referencedColumnName = "idmotivocancelamento")
+	@ManyToOne(optional = false)
+	private Motivocancelamento motivocancelamento1;
 	@Column(name = "datarecebimento")
 	@Temporal(TemporalType.DATE)
 	private Date datarecebimento;
@@ -82,8 +93,6 @@ public class Lead implements Serializable {
 	private boolean selecionado;
 	@Column(name = "Urlclient")
 	private String urlclient;
-	@Column(name = "idcontrole")
-	private Integer idcontrole;
 	@Column(name = "nomeunidade")
 	private String nomeunidade;
 	@Transient
@@ -91,7 +100,6 @@ public class Lead implements Serializable {
 
 	public Lead() {
 		setNomeunidade("");
-		idcontrole = 0;
 	}
 
 	public Lead(Integer idlead) {
@@ -202,7 +210,22 @@ public class Lead implements Serializable {
 		this.produtos = produtos;
 	}
 
-	
+	public Publicidade getPublicidade() {
+		return publicidade;
+	}
+
+	public void setPublicidade(Publicidade publicidade) {
+		this.publicidade = publicidade;
+	}
+
+	public Tipocontato getTipocontato() {
+		return tipocontato;
+	}
+
+	public void setTipocontato(Tipocontato tipocontato) {
+		this.tipocontato = tipocontato;
+	}
+
 	public Unidadenegocio getUnidadenegocio() {
 		return unidadenegocio;
 	}
@@ -219,7 +242,13 @@ public class Lead implements Serializable {
 		this.usuario = usuario;
 	}
 
-	
+	public Motivocancelamento getMotivocancelamento1() {
+		return motivocancelamento1;
+	}
+
+	public void setMotivocancelamento1(Motivocancelamento motivocancelamento1) {
+		this.motivocancelamento1 = motivocancelamento1;
+	}
 
 	public Date getDatarecebimento() {
 		return datarecebimento;
@@ -245,21 +274,7 @@ public class Lead implements Serializable {
 		this.selecionado = selecionado;
 	}
 
-	public String getUrlclient() {
-		return urlclient;
-	}
-
-	public void setUrlclient(String urlclient) {
-		this.urlclient = urlclient;
-	}
-
-	public Integer getIdcontrole() {
-		return idcontrole;
-	}
-
-	public void setIdcontrole(Integer idcontrole) {
-		this.idcontrole = idcontrole;
-	}
+	
 
 	public String getNomeunidade() {
 		return nomeunidade;

@@ -114,11 +114,15 @@ public class UsuarioLogadoMB implements Serializable {
 		} else {
 			lead = leadDao.consultar("SELECT l FROM Lead l WHERE l.cliente.email like '%"+ login +"%'");
 			if (lead == null) {
-				Mensagem.lancarMensagemInfo("Aten��o", "Acesso negado");
+				Mensagem.lancarMensagemInfo("Atenção", "Seu questionário ainda não está liberado; Consulte seu consultor;");
 			} else {
-				mensagemOla();
-				cliente = lead.getCliente();
-				return logar = true;
+				if (lead.getCliente().isOnline()) {
+					mensagemOla();
+					cliente = lead.getCliente();
+					return logar = true;
+				}else {
+					Mensagem.lancarMensagemInfo("Atenção", "Seu questionário ainda não está liberado; Consulte seu consultor;");
+				}
 			}
 		}
 		cliente = new Cliente();

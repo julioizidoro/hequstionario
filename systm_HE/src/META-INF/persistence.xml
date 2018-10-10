@@ -15,5 +15,7 @@
 		<class>br.com.travelmate.model.Lead</class>
 		<class>br.com.travelmate.model.Leadhistorico</class>
 		<class>br.com.travelmate.model.Tipocontato</class>
+		<class>br.com.travelmate.model.Publicidade</class>
+		<class>br.com.travelmate.model.Motivocancelamento</class>
 	</persistence-unit>
 </persistence>

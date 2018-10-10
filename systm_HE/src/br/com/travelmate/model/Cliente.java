@@ -166,11 +166,16 @@ public class Cliente implements Serializable {
 	@Size(max = 50)
 	@Column(name = "datainicioprorama")
 	private String datainicioprograma;
-	@JoinColumn(name = "publicidade_idpublicidade", referencedColumnName = "idpublicidade")
+	@JoinColumn(name = "unidadenegocio_idunidadeNegocio", referencedColumnName = "idunidadeNegocio")
 	@ManyToOne(optional = false)
 	private Unidadenegocio unidadenegocio;
+	@JoinColumn(name = "publicidade_idpublicidade", referencedColumnName = "idpublicidade")
+	@ManyToOne(optional = false)
+	private Publicidade publicidade;
 	@Column(name = "idioma")
 	private int idioma;
+	@Column(name = "online")
+	private boolean online;
 
 	public Cliente() {
 		setIdioma(0);
@@ -554,6 +559,22 @@ public class Cliente implements Serializable {
 
 	public void setIdioma(int idioma) {
 		this.idioma = idioma;
+	}
+
+	public Publicidade getPublicidade() {
+		return publicidade;
+	}
+
+	public void setPublicidade(Publicidade publicidade) {
+		this.publicidade = publicidade;
+	}
+
+	public boolean isOnline() {
+		return online;
+	}
+
+	public void setOnline(boolean online) {
+		this.online = online;
 	}
 
 	@Override
