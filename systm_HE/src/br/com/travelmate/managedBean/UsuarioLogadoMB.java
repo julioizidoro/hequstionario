@@ -5,15 +5,7 @@
  */
 package br.com.travelmate.managedBean;
 
-import br.com.travelmate.connection.ConectionFactory;
-import br.com.travelmate.dao.ClienteDao;
-import br.com.travelmate.dao.LeadDao;
-import br.com.travelmate.model.Cliente;
-import br.com.travelmate.model.Lead;
-import br.com.travelmate.util.Mensagem;
-
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -23,6 +15,12 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+
+import br.com.travelmate.connection.ConectionFactory;
+import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.model.Cliente;
+import br.com.travelmate.model.Lead;
+import br.com.travelmate.util.Mensagem;
 
 
 /**
@@ -116,7 +114,7 @@ public class UsuarioLogadoMB implements Serializable {
 		} else {
 			lead = leadDao.consultar("SELECT l FROM Lead l WHERE l.cliente.email like '%"+ login +"%'");
 			if (lead == null) {
-				Mensagem.lancarMensagemInfo("Atenção", "Acesso negado");
+				Mensagem.lancarMensagemInfo("Atenï¿½ï¿½o", "Acesso negado");
 			} else {
 				mensagemOla();
 				cliente = lead.getCliente();
