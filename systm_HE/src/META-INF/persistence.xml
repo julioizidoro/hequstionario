@@ -14,5 +14,6 @@
 		<class>br.com.travelmate.model.Produtos</class>
 		<class>br.com.travelmate.model.Lead</class>
 		<class>br.com.travelmate.model.Leadhistorico</class>
+		<class>br.com.travelmate.model.Tipocontato</class>
 	</persistence-unit>
 </persistence>
