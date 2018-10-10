@@ -16,7 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import br.com.travelmate.connection.ConectionFactory;
+
 import br.com.travelmate.dao.LeadDao;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Lead;
@@ -136,7 +136,6 @@ public class UsuarioLogadoMB implements Serializable {
 		sessionMap.clear();
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		session.invalidate();
-		ConectionFactory.getInstanceClose();
 		return "index";
 	}
 

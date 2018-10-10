@@ -54,15 +54,9 @@ public class Usuario implements Serializable {
     @Size(max = 100)
     @Column(name = "email")
     private String email;
-    @JoinColumn(name = "grupoAcesso_idgrupoAcesso", referencedColumnName = "idgrupoAcesso")
-    @ManyToOne(optional = false)
-    private Grupoacesso grupoacesso;
     @JoinColumn(name = "unidadeNegocio_idunidadeNegocio", referencedColumnName = "idunidadeNegocio")
     @ManyToOne(optional = false)
     private Unidadenegocio unidadenegocio;
-    @JoinColumn(name = "departamento_iddepartamento", referencedColumnName = "iddepartamento")
-    @ManyToOne(optional = false)
-    private Departamento departamento;
     @Column(name = "vende")
     private boolean vende;
     @Column(name = "foto")
@@ -93,9 +87,6 @@ public class Usuario implements Serializable {
     private String dashboard; 
     @Transient
     private boolean fecharaniversario; 
-    @JoinColumn(name = "cargo_idcargo", referencedColumnName = "idcargo")
-    @ManyToOne(optional = false)
-    private Cargo cargo;
     @Column(name = "tmturcadastro")
     private boolean tmturcadastro;
     @Column(name = "tmturativo")
@@ -169,16 +160,6 @@ public class Usuario implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     } 
-
-    
-
-    public Grupoacesso getGrupoacesso() {
-        return grupoacesso;
-    }
-
-    public void setGrupoacesso(Grupoacesso grupoacesso) {
-        this.grupoacesso = grupoacesso;
-    }
 
     public Unidadenegocio getUnidadenegocio() {
         return unidadenegocio;
@@ -261,16 +242,6 @@ public class Usuario implements Serializable {
 		this.recebeleadautomatica = recebeleadautomatica;
 	} 
 
-	
-
-	public Cargo getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(Cargo cargo) {
-		this.cargo = cargo;
-	}
-
 	public String getEmailagenda() {
 		return emailagenda;
 	}
@@ -304,17 +275,6 @@ public class Usuario implements Serializable {
     public String toString() {
     	return "br.com.travelmate.model.Usuario[ idusuario=" + idusuario + " ]";
     }
-
-    
-    
-
-	public Departamento getDepartamento() {
-		return departamento;
-	}
-
-	public void setDepartamento(Departamento departamento) {
-		this.departamento = departamento;
-	}
 
 	public boolean isVende() {
 		return vende;

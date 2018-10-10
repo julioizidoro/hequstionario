@@ -101,9 +101,6 @@ public class Unidadenegocio implements Serializable {
     private boolean parcelamentojoja;
     @Column(name = "percentualcurso")
     private float percentualcurso;
-    @JoinColumn(name = "banco_idbanco", referencedColumnName = "idbanco")
-    @ManyToOne(optional = false)
-    private Banco banco; 
     @Column(name = "fundomarketing")
     private float fundomarketing;
     @Column(name = "leadautomatica")
@@ -289,15 +286,7 @@ public class Unidadenegocio implements Serializable {
     }
 
     
-    public Banco getBanco() {
-        return banco;
-    }
-
-    public void setBanco(Banco banco) {
-        this.banco = banco;
-    }
-
-    
+      
     public String getNomerelatorio() {
 		return nomerelatorio;
 	}

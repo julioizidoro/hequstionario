@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import br.com.travelmate.connection.ConectionFactory;
+
 import br.com.travelmate.connection.Transactional;
 import br.com.travelmate.model.Lead; 
 
@@ -55,17 +55,5 @@ public class LeadDao implements Serializable{
     }
 	
 	
-	public Integer consultarNumLead(String sql)  {
-		EntityManager manager;
-		manager = ConectionFactory.getConnection();
-		Query q = manager.createQuery(sql);
-		Integer numero = null;
-		Long numLong = null;
-		if (q.getResultList().size() > 0) {
-			numLong = (Long) q.getResultList().get(0);
-		}
-		numero = numLong.intValue();
-		manager.close();
-		return numero;
-	}
+	
 }

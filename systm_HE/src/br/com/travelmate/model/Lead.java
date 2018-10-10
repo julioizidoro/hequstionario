@@ -66,21 +66,12 @@ public class Lead implements Serializable {
 	@JoinColumn(name = "produtos_idprodutos", referencedColumnName = "idprodutos")
 	@ManyToOne(optional = false)
 	private Produtos produtos;
-	@JoinColumn(name = "publicidade_idpublicidade", referencedColumnName = "idpublicidade")
-	@ManyToOne(optional = false)
-	private Publicidade publicidade;
-	@JoinColumn(name = "tipocontato_idtipocontato", referencedColumnName = "idtipocontato")
-	@ManyToOne(optional = false)
-	private Tipocontato tipocontato;
 	@JoinColumn(name = "unidadenegocio_idunidadeNegocio", referencedColumnName = "idunidadeNegocio")
 	@ManyToOne(optional = false)
 	private Unidadenegocio unidadenegocio;
 	@JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
 	@ManyToOne(optional = false)
 	private Usuario usuario;
-	@JoinColumn(name = "motivocancelamento_idmotivocancelamento", referencedColumnName = "idmotivocancelamento")
-	@ManyToOne(optional = false)
-	private Motivocancelamento motivocancelamento1;
 	@Column(name = "datarecebimento")
 	@Temporal(TemporalType.DATE)
 	private Date datarecebimento;
@@ -211,22 +202,7 @@ public class Lead implements Serializable {
 		this.produtos = produtos;
 	}
 
-	public Publicidade getPublicidade() {
-		return publicidade;
-	}
-
-	public void setPublicidade(Publicidade publicidade) {
-		this.publicidade = publicidade;
-	}
-
-	public Tipocontato getTipocontato() {
-		return tipocontato;
-	}
-
-	public void setTipocontato(Tipocontato tipocontato) {
-		this.tipocontato = tipocontato;
-	}
-
+	
 	public Unidadenegocio getUnidadenegocio() {
 		return unidadenegocio;
 	}
@@ -243,13 +219,7 @@ public class Lead implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Motivocancelamento getMotivocancelamento1() {
-		return motivocancelamento1;
-	}
-
-	public void setMotivocancelamento1(Motivocancelamento motivocancelamento1) {
-		this.motivocancelamento1 = motivocancelamento1;
-	}
+	
 
 	public Date getDatarecebimento() {
 		return datarecebimento;

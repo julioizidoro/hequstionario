@@ -168,9 +168,6 @@ public class Cliente implements Serializable {
 	private String datainicioprograma;
 	@JoinColumn(name = "publicidade_idpublicidade", referencedColumnName = "idpublicidade")
 	@ManyToOne(optional = false)
-	private Publicidade publicidade;
-	@JoinColumn(name = "unidadeNegocio_idunidadeNegocio", referencedColumnName = "idunidadeNegocio")
-	@ManyToOne(optional = false)
 	private Unidadenegocio unidadenegocio;
 	@Column(name = "idioma")
 	private int idioma;
@@ -517,14 +514,6 @@ public class Cliente implements Serializable {
 
 	public void setEstadoCivil(String estadoCivil) {
 		this.estadoCivil = estadoCivil;
-	}
-
-	public Publicidade getPublicidade() {
-		return publicidade;
-	}
-
-	public void setPublicidade(Publicidade publicidade) {
-		this.publicidade = publicidade;
 	}
 
 	public Unidadenegocio getUnidadenegocio() {

@@ -4,7 +4,7 @@
  */
 package br.com.travelmate.dao;
 
-import br.com.travelmate.connection.ConectionFactory;
+
 import br.com.travelmate.connection.Transactional;
 import br.com.travelmate.model.Cliente;
 
@@ -88,7 +88,6 @@ public class ClienteDao implements Serializable{
     }
     
     public List<Cliente> listar(String sql) throws SQLException{
-        manager = ConectionFactory.getInstance();
         Query q = manager.createQuery(sql);
         List<Cliente> lista = q.getResultList();
         return lista;

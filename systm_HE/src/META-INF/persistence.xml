@@ -6,25 +6,13 @@
 		<class>br.com.travelmate.model.Cliente</class>
 		<class>br.com.travelmate.model.Usuario</class>
 		<class>br.com.travelmate.model.Unidadenegocio</class>
-		<class>br.com.travelmate.model.Publicidade</class>
-		<class>br.com.travelmate.model.Banco</class>
 		<class>br.com.travelmate.model.Pais</class>
 		<class>br.com.travelmate.model.Moedas</class>
 		<class>br.com.travelmate.model.Cidade</class>
 		<class>br.com.travelmate.model.Cidadepaisproduto</class>
 		<class>br.com.travelmate.model.Paisproduto</class>
 		<class>br.com.travelmate.model.Produtos</class>
-		<class>br.com.travelmate.model.Grupoacesso</class>
-		<class>br.com.travelmate.model.Acesso</class>
-		<class>br.com.travelmate.model.Departamento</class>
-		<class>br.com.travelmate.model.Cargo</class>
 		<class>br.com.travelmate.model.Lead</class>
-		<class>br.com.travelmate.model.Leadcontrole</class>
 		<class>br.com.travelmate.model.Leadhistorico</class>
-		<class>br.com.travelmate.model.Leadencaminhado</class>
-		<class>br.com.travelmate.model.Leadresponsavel</class>
-		<class>br.com.travelmate.model.Leadsituacao</class>
-		<class>br.com.travelmate.model.Tipocontato</class>
-		<class>br.com.travelmate.model.Motivocancelamento</class>
 	</persistence-unit>
 </persistence>
