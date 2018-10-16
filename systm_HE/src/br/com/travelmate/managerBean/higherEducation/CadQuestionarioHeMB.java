@@ -83,11 +83,7 @@ public class CadQuestionarioHeMB implements Serializable {
 	@PostConstruct
 	public void init() {
 		listarPaises();
-		try {
-			questionarioHe = questionarioHeDao.consultarQuestionario(usuarioLogadoMB.getCliente().getIdcliente(),
-					"Online");
-		} catch (SQLException e) {
-		}
+		questionarioHe = usuarioLogadoMB.getQuestionariohe();
 		if (questionarioHe == null) {
 			questionarioHe = new Questionariohe();
 		}else {

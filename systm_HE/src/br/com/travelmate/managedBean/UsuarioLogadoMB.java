@@ -6,6 +6,7 @@
 package br.com.travelmate.managedBean;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -18,8 +19,10 @@ import javax.servlet.http.HttpSession;
 
 
 import br.com.travelmate.dao.LeadDao;
+import br.com.travelmate.dao.QuestionarioHeDao;
 import br.com.travelmate.model.Cliente;
 import br.com.travelmate.model.Lead;
+import br.com.travelmate.model.Questionariohe;
 import br.com.travelmate.util.Mensagem;
 
 
@@ -38,12 +41,15 @@ public class UsuarioLogadoMB implements Serializable {
 
 	@Inject
 	private LeadDao leadDao;
+	@Inject
+	private QuestionarioHeDao questionarioHeDao;
 	private Cliente cliente;
 	private String mensagemOla;
 	private boolean controle;
 	private boolean logar;
 	private String login;
 	private Lead lead;
+	private Questionariohe questionariohe;
 
 	@PostConstruct
 	public void init() {
@@ -99,6 +105,14 @@ public class UsuarioLogadoMB implements Serializable {
 		this.lead = lead;
 	}
 
+	public Questionariohe getQuestionariohe() {
+		return questionariohe;
+	}
+
+	public void setQuestionariohe(Questionariohe questionariohe) {
+		this.questionariohe = questionariohe;
+	}
+
 	public String logar() {
 		if (logar) {
 			return "paginainicial";
@@ -117,9 +131,18 @@ public class UsuarioLogadoMB implements Serializable {
 				Mensagem.lancarMensagemInfo("Atenção", "Seu questionário ainda não está liberado; Consulte seu consultor;");
 			} else {
 				if (lead.getCliente().isOnline()) {
-					mensagemOla();
-					cliente = lead.getCliente();
-					return logar = true;
+					try {
+						questionariohe = questionarioHeDao.consultarQuestionario(lead.getCliente().getIdcliente(),
+								"Online");
+					} catch (SQLException e) {
+					}
+					if (questionariohe != null && !questionariohe.getSituacao().equalsIgnoreCase("PROCESSO")) {
+						Mensagem.lancarMensagemInfo("Seu Questionário está em Análise", "Consulte seu consultor!");
+					}else {
+						mensagemOla();
+						cliente = lead.getCliente();
+						return logar = true;
+					}
 				}else {
 					Mensagem.lancarMensagemInfo("Atenção", "Seu questionário ainda não está liberado; Consulte seu consultor;");
 				}
