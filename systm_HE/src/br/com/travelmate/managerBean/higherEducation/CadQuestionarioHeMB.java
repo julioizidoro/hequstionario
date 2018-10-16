@@ -232,14 +232,14 @@ public class CadQuestionarioHeMB implements Serializable {
 		leadhistorico.setCliente(cliente);
 		leadhistorico.setDatahistorico(new Date());
 		leadhistorico.setDataproximocontato(new Date());
-		String sql = "Select t From Tipocontato t where t.tipo='Orçamento'";
+		String sql = "Select t From Tipocontato t where t.tipo='Orï¿½amento'";
 		Tipocontato tipocontato;
 		try {
 			tipocontato = tipoContatoDao.consultar(sql);
 			leadhistorico.setTipocontato(tipocontato);
-			leadhistorico.setHistorico("Cadastro de um questionário como id: " + questionarioHe.getIdquestionariohe() + ": "
-					+ " incluido no dia : " + Formatacao.ConvercaoDataPadrao(new Date()) + ", cliente: " + cliente.getNome() + ". Verifique o questionário e atualize a situaçao para 'Em Análise'");
-			leadhistorico.setTipoorcamento("");
+			leadhistorico.setHistorico("Cadastro de um questionï¿½rio como id: " + questionarioHe.getIdquestionariohe() + ": "
+					+ " incluido no dia : " + Formatacao.ConvercaoDataPadrao(new Date()) + ", cliente: " + cliente.getNome() + ". Verifique o questionï¿½rio e atualize a situaï¿½ao para 'Em Anï¿½lise'");
+			leadhistorico.setTipoorcamento("s");
 			leadhistorico.setIdorcamento(0);
 			leadHistoricoDao.salvar(leadhistorico);
 		} catch (SQLException e) {
