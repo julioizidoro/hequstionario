@@ -16,6 +16,7 @@ import javax.inject.Named;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import br.com.travelmate.dao.AvisosDao;
 import br.com.travelmate.dao.CidadePaisProdutoDao;
 import br.com.travelmate.dao.ClienteDao;
 import br.com.travelmate.dao.LeadHistoricoDao;
@@ -24,6 +25,8 @@ import br.com.travelmate.dao.PaisProdutoDao;
 import br.com.travelmate.dao.QuestionarioHeDao;
 import br.com.travelmate.dao.TipoContatoDao;
 import br.com.travelmate.managedBean.UsuarioLogadoMB;
+import br.com.travelmate.model.Avisos;
+import br.com.travelmate.model.Avisousuario;
 import br.com.travelmate.model.Cidade;
 import br.com.travelmate.model.Cidadepaisproduto;
 import br.com.travelmate.model.Cliente;
@@ -58,6 +61,8 @@ public class CadQuestionarioHeMB implements Serializable {
 	@Inject
 	private CidadePaisProdutoDao cidadePaisProdutoDao;
 	@Inject
+	private AvisosDao avisosDao;
+	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Cliente cliente;
 	private Questionariohe questionarioHe;
@@ -69,8 +74,11 @@ public class CadQuestionarioHeMB implements Serializable {
 	private boolean cadastrado = false;
 	private Lead lead;
 	private boolean habilitarNivel3pais = true;
-	private List<Cidade> listaCidade; 
+	private List<Cidade> listaCidade;
 	private List<Cidade> listaCidade2;
+	private Cidade cidade;
+	private Cidade cidade2;
+	private Cidadepaisproduto cidadepaisproduto;
 
 	@PostConstruct
 	public void init() {
@@ -82,6 +90,26 @@ public class CadQuestionarioHeMB implements Serializable {
 		}
 		if (questionarioHe == null) {
 			questionarioHe = new Questionariohe();
+		}else {
+			if (questionarioHe.getCidade() != null && questionarioHe.getCidade().length() >0) {
+				try {
+					cidadepaisproduto = cidadePaisProdutoDao.consultar("Select c FROM Cidadepaisproduto c WHERE c.cidade.nome like '%"+ questionarioHe.getCidade() +"%' and c.paisproduto.produtos.idprodutos=22");
+					if (cidadepaisproduto != null) {
+						cidade = cidadepaisproduto.getCidade();
+					}
+				} catch (SQLException e) {
+				}
+			}
+			
+			if (questionarioHe.getCidade2() != null && questionarioHe.getCidade2().length() >0) {
+				try {
+					cidadepaisproduto = cidadePaisProdutoDao.consultar("Select c FROM Cidadepaisproduto c WHERE c.cidade.nome like '%"+ questionarioHe.getCidade2() +"%' and c.paisproduto.produtos.idprodutos=22");
+					if (cidadepaisproduto != null) {
+						cidade2 = cidadepaisproduto.getCidade();
+					}
+				} catch (SQLException e) {
+				}
+			}
 		}
 
 		cliente = usuarioLogadoMB.getCliente();
@@ -178,6 +206,22 @@ public class CadQuestionarioHeMB implements Serializable {
 		this.listaCidade2 = listaCidade2;
 	}
 
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
+	public Cidade getCidade2() {
+		return cidade2;
+	}
+
+	public void setCidade2(Cidade cidade2) {
+		this.cidade2 = cidade2;
+	}
+
 	public String pesquisarCliente() {
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 650);
@@ -203,6 +247,12 @@ public class CadQuestionarioHeMB implements Serializable {
 			cliente = clienteDao.salvar(cliente);
 			questionarioHe.setCliente(cliente);
 			questionarioHe.setUsuario(lead.getUsuario());
+			if (cidade != null) {
+				questionarioHe.setCidade(cidade.getNome());
+			}
+			if (cidade2 != null) {
+				questionarioHe.setCidade2(cidade2.getNome());
+			}
 			if (questionarioHe.getIdquestionariohe() == null) {
 				questionarioHe.setDataenvio(new Date());
 				questionarioHe.setSituacao("Processo");
@@ -210,6 +260,7 @@ public class CadQuestionarioHeMB implements Serializable {
 			questionarioHe = questionarioHeDao.salvar(questionarioHe);
 			Mensagem.lancarMensagemInfo("Questionario salvo com sucesso!", "");
 			salvarHistoricoLead();
+			gerarAviso();
 			cadastrado = true;
 			return "";
 		} catch (SQLException e) {
@@ -280,9 +331,9 @@ public class CadQuestionarioHeMB implements Serializable {
 	public void listarCidade() {
 		if (questionarioHe.getPais1() != null) {
 			try {
-				List<Cidadepaisproduto> listaCidadeProduto = cidadePaisProdutoDao
-						.listar("SELECT c FROM Cidadepaisproduto c WHERE c.paisproduto.produtos.idprodutos=22 and c.paisproduto.pais.nome like '%"+ questionarioHe.getPais1() +"%'"
-								 + " order by c.cidade.nome");
+				List<Cidadepaisproduto> listaCidadeProduto = cidadePaisProdutoDao.listar(
+						"SELECT c FROM Cidadepaisproduto c WHERE c.paisproduto.produtos.idprodutos=22 and c.paisproduto.pais.nome like '%"
+								+ questionarioHe.getPais1() + "%'" + " order by c.cidade.nome");
 				listaCidade = new ArrayList<Cidade>();
 				if (listaCidadeProduto == null) {
 					listaCidadeProduto = new ArrayList<Cidadepaisproduto>();
@@ -294,14 +345,13 @@ public class CadQuestionarioHeMB implements Serializable {
 			}
 		}
 	}
-	
-	
+
 	public void listarCidade2() {
 		if (questionarioHe.getPais2() != null) {
 			try {
-				List<Cidadepaisproduto> listaCidadeProduto = cidadePaisProdutoDao
-						.listar("SELECT c FROM Cidadepaisproduto c WHERE c.paisproduto.produtos.idprodutos=22 and c.paisproduto.pais.nome like '%"+ questionarioHe.getPais2() +"%'"
-								 + " order by c.cidade.nome");
+				List<Cidadepaisproduto> listaCidadeProduto = cidadePaisProdutoDao.listar(
+						"SELECT c FROM Cidadepaisproduto c WHERE c.paisproduto.produtos.idprodutos=22 and c.paisproduto.pais.nome like '%"
+								+ questionarioHe.getPais2() + "%'" + " order by c.cidade.nome");
 				listaCidade2 = new ArrayList<Cidade>();
 				if (listaCidadeProduto == null) {
 					listaCidadeProduto = new ArrayList<Cidadepaisproduto>();
@@ -312,6 +362,30 @@ public class CadQuestionarioHeMB implements Serializable {
 			} catch (SQLException e) {
 			}
 		}
+	}
+
+
+
+	public void gerarAviso() {
+		List<Avisousuario> lista = new ArrayList<Avisousuario>();
+		Avisos avisos = new Avisos();
+		avisos.setData(new Date());
+		avisos.setUsuario(usuarioLogadoMB.getLead().getUsuario());
+		avisos.setImagem("aviso");
+		avisos.setLiberar(true);
+		if (questionarioHe.getIdquestionariohe() == null) {
+			avisos.setTexto("Novo Questionário Online. Cliente:" + usuarioLogadoMB.getCliente().getNome());
+		} else {
+			avisos.setTexto("Cliente:" + usuarioLogadoMB.getCliente().getNome() + " alterou seu Questionário Online.");
+		}
+		avisos.setIdunidade(0);
+		Avisousuario avisousuario = new Avisousuario();
+		avisousuario.setAvisos(avisos);
+		avisousuario.setUsuario(usuarioLogadoMB.getLead().getUsuario());
+		avisousuario.setVisto(false);
+		lista.add(avisousuario);
+		avisos.setAvisousuarioList(lista);
+		avisos = avisosDao.salvar(avisos);
 	}
 
 }

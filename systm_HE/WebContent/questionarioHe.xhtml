@@ -284,17 +284,17 @@
 								listener="#{cadQuestionarioHeMB.verificarNivel()}"
 								update="panelCidadeCertificado, cidade, nivelCertificado" />
 						</p:selectOneMenu>
-						<p:selectOneMenu id="cidade" value="#{cadQuestionarioHeMB.questionarioHe.cidade}"
+						<p:selectOneMenu id="cidade" value="#{cadQuestionarioHeMB.cidade}"
 							style="width:150px;" converter="CidadeConverter"
 							filter="true" filterMatchMode="startsWith"
 							disabled="#{cadQuestionarioHeMB.habilitarNivel3}">
 							<f:selectItem itemLabel="Cidade" itemValue="0"
 								noSelectionOption="true" />
 							<f:selectItems id="idcidade"
-								value="#{cadCursoMB.listaCidade}" var="cursocidade"
+								value="#{cadQuestionarioHeMB.listaCidade}" var="cursocidade"
 								itemLabel="#{cursocidade.nome}" itemValue="#{cursocidade}" />
 							<f:attribute name="listaCidade"
-								value="#{cadCursoMB.listaCidade}" />
+								value="#{cadQuestionarioHeMB.listaCidade}" />
 						</p:selectOneMenu>
 						<p:selectOneMenu id="nivelInteresse"
 								value="#{cadQuestionarioHeMB.questionarioHe.nivelcertificadointeresse}"
@@ -325,17 +325,17 @@
 								listener="#{cadQuestionarioHeMB.verificarNivel2()}"
 								update="panelCidadeCertificado,  cidade2, nivelCertificado" />
 						</p:selectOneMenu>
-							<p:selectOneMenu id="cidade2" value="#{cadQuestionarioHeMB.questionarioHe.cidade2}"
+							<p:selectOneMenu id="cidade2" value="#{cadQuestionarioHeMB.cidade2}"
 								style="width:150px;" converter="CidadeConverter"
 								filter="true" filterMatchMode="startsWith"
 								disabled="#{cadQuestionarioHeMB.habilitarNivel3pais}">
 								<f:selectItem itemLabel="Cidade" itemValue="0"
 									noSelectionOption="true" />
 								<f:selectItems id="idcidade2"
-									value="#{cadCursoMB.listaCidade2}" var="cursocidade"
+									value="#{cadQuestionarioHeMB.listaCidade2}" var="cursocidade"
 									itemLabel="#{cursocidade.nome}" itemValue="#{cursocidade}" />
 								<f:attribute name="listaCidade"
-									value="#{cadCursoMB.listaCidade2}" />
+									value="#{cadQuestionarioHeMB.listaCidade2}" />
 							</p:selectOneMenu>
 						<p:selectOneMenu id="nivelInteresse2"
 								value="#{cadQuestionarioHeMB.questionarioHe.nivelcertificadointeresse2}"
