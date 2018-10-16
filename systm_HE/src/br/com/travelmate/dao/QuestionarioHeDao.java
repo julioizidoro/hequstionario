@@ -45,6 +45,17 @@ public class QuestionarioHeDao implements Serializable{
         return questionariohe;
     } 
     
+
+    
+    public Questionariohe consultarQuestionario(int idcliente, String tipoquestionario) throws SQLException {
+        Query q = manager.createQuery("select q from Questionariohe q where q.tipoquestionario='" + tipoquestionario + "' and q.cliente.idcliente=" + idcliente);
+        Questionariohe questionariohe = null;
+        if (q.getResultList().size()>0){
+        	questionariohe = (Questionariohe) q.getResultList().get(0);
+        }
+        return questionariohe;
+    } 
+    
     
     public Questionariohe consultarVenda(int idvenda) throws SQLException {
         Query q = manager.createQuery("select q from Questionariohe q where q.vendas_idvendas=" + idvenda);

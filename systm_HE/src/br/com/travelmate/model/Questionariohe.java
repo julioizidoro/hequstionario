@@ -113,9 +113,13 @@ public class Questionariohe implements Serializable {
 	private String outranacionalidade;
     @Column(name = "cidade2")
 	private String cidade2;
+    @Column(name = "tipoquestionario")
+	private String tipoquestionario;
 
     public Questionariohe() {
     	setSituacao("Pendente");
+    	setTipoquestionario("Online");
+    	
     }
 
     public Questionariohe(Integer idquestionariohe) {
@@ -369,6 +373,14 @@ public class Questionariohe implements Serializable {
 
 	public void setCidade2(String cidade2) {
 		this.cidade2 = cidade2;
+	}
+
+	public String getTipoquestionario() {
+		return tipoquestionario;
+	}
+
+	public void setTipoquestionario(String tipoquestionario) {
+		this.tipoquestionario = tipoquestionario;
 	}
 
 	@Override
