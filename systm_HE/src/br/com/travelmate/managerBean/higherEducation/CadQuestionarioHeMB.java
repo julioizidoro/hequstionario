@@ -257,10 +257,10 @@ public class CadQuestionarioHeMB implements Serializable {
 				questionarioHe.setDataenvio(new Date());
 				questionarioHe.setSituacao("Processo");
 			}
+			gerarAviso();
 			questionarioHe = questionarioHeDao.salvar(questionarioHe);
 			Mensagem.lancarMensagemInfo("Questionario salvo com sucesso!", "");
 			salvarHistoricoLead();
-			gerarAviso();
 			cadastrado = true;
 			return "";
 		} catch (SQLException e) {
