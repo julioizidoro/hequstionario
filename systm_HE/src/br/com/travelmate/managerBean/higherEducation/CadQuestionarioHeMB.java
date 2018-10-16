@@ -259,7 +259,7 @@ public class CadQuestionarioHeMB implements Serializable {
 			}
 			gerarAviso();
 			questionarioHe = questionarioHeDao.salvar(questionarioHe);
-			Mensagem.lancarMensagemInfo("Questionario salvo com sucesso!", "");
+			Mensagem.lancarMensagemInfo("Questionário salvo com sucesso!", "");
 			salvarHistoricoLead();
 			cadastrado = true;
 			return "";
@@ -313,7 +313,7 @@ public class CadQuestionarioHeMB implements Serializable {
 			leadhistorico.setTipocontato(tipocontato);
 			leadhistorico.setHistorico("Cadastro de um questionário como id: " + questionarioHe.getIdquestionariohe()
 					+ ": " + " incluido no dia : " + Formatacao.ConvercaoDataPadrao(new Date()) + ", cliente: "
-					+ cliente.getNome() + ". Verifique o questionário e atualize a situaçao para 'Em Análise'");
+					+ cliente.getNome() + ". Verifique o questionário e atualize a situação para 'Em Análise'");
 			leadhistorico.setTipoorcamento("s");
 			leadhistorico.setIdorcamento(0);
 			leadHistoricoDao.salvar(leadhistorico);
