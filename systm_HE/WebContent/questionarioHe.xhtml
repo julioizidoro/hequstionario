@@ -265,10 +265,8 @@
 					<p:outputLabel />
 
 				</h:panelGrid>
-				<h:panelGrid columns="1" id="panelInformacoesNivel2"
+				<h:panelGrid columns="3" id="panelInformacoesNivel2"
 					style="width:62%;margin:1%;">
-					<h:panelGrid columns="3" style="width:85%;">
-					
 
 					<p:outputLabel value="Destino em que prefere estudar" for="pais" />
 					<p:outputLabel />
@@ -276,8 +274,8 @@
 						<p:selectOneMenu id="pais"
 							value="#{cadQuestionarioHeMB.questionarioHe.pais1}"
 							style="width:170px;" filter="true" filterMatchMode="startsWith"
-							panelStyle="width:180px">
-							<f:selectItem itemLabel="Selecione" />
+							panelStyle="width:180px"> 
+							<f:selectItem itemLabel="Pais" />
 							<f:selectItems value="#{cadQuestionarioHeMB.listaPais}"
 								var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais.nome}" />
 							<p:ajax event="change"
@@ -311,14 +309,14 @@
 								<f:selectItem itemLabel="Mestrado(1 a 2 anos)"
 									itemValue="Mestrado(1 a 2 anos)" />
 							</p:selectOneMenu>
-					</h:panelGrid>
 					<p:outputLabel/>
-					<h:panelGrid columns="3" style="width:85%;">
+					<p:outputLabel/>
+					<p:outputLabel/>
 						<p:selectOneMenu id="pais2"
 							value="#{cadQuestionarioHeMB.questionarioHe.pais2}"
 							style="width:170px;" filter="true"
 							filterMatchMode="startsWith" panelStyle="width:180px">
-							<f:selectItem itemLabel="Selecione" />
+							<f:selectItem itemLabel="Pais" />
 							<f:selectItems value="#{cadQuestionarioHeMB.listaPais}"
 								var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais.nome}" />
 							<p:ajax event="change"
@@ -352,9 +350,7 @@
 								<f:selectItem itemLabel="Mestrado(1 a 2 anos)"
 									itemValue="Mestrado(1 a 2 anos)" />
 							</p:selectOneMenu>
-					</h:panelGrid>
 				</h:panelGrid>
-				<br />
 				<h:panelGrid columns="3" style="width:100%;margin-left:1%;" rendered="false">
 					<p:outputLabel id="nivelCertificado"
 						value="Nível de Certificação de interesse" for="nivelInteresse" />
@@ -415,7 +411,7 @@
 
 					<p:outputLabel />
 					<p:outputLabel value="Observações e parecer do consultor"
-						style="font-size: 11px" />
+						 />
 					<p:inputTextarea styleClass="form-control" id="observacao"
 						cols="40" rows="6"
 						value="#{cadQuestionarioHeMB.questionarioHe.observacao}" />
