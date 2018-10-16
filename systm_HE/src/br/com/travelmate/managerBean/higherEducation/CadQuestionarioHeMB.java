@@ -18,6 +18,7 @@ import org.primefaces.event.SelectEvent;
 import br.com.travelmate.dao.ClienteDao;
 import br.com.travelmate.dao.LeadHistoricoDao;
 import br.com.travelmate.dao.PaisDao;
+import br.com.travelmate.dao.PaisProdutoDao;
 import br.com.travelmate.dao.QuestionarioHeDao;
 import br.com.travelmate.dao.TipoContatoDao;
 import br.com.travelmate.managedBean.UsuarioLogadoMB;
@@ -49,23 +50,23 @@ public class CadQuestionarioHeMB implements Serializable {
 	@Inject
 	private LeadHistoricoDao leadHistoricoDao;
 	@Inject
+	private PaisProdutoDao paisProdutoDao;
+	@Inject
 	private UsuarioLogadoMB usuarioLogadoMB;
 	private Cliente cliente;
 	private Questionariohe questionarioHe;
 	private List<Pais> listaPais;
 	private String voltarControleVendas = "";
 	private boolean habilitarNivel12 = true;
-	private boolean habilitarNivel3 = false;
+	private boolean habilitarNivel3 = true;
 	private boolean habilitarNotas = true;
 	private boolean cadastrado = false;
 	private Lead lead;
+	private boolean habilitarNivel3pais = true;
 
 	@PostConstruct
 	public void init() {
-		try {
-			listaPais = paisDao.listar();
-		} catch (SQLException e) {
-		}
+		listarPaises();
 		if (questionarioHe == null) {
 			questionarioHe = new Questionariohe();
 			cliente = usuarioLogadoMB.getCliente();
@@ -143,6 +144,16 @@ public class CadQuestionarioHeMB implements Serializable {
 	}
 
 
+	public boolean isHabilitarNivel3pais() {
+		return habilitarNivel3pais;
+	}
+
+
+	public void setHabilitarNivel3pais(boolean habilitarNivel3pais) {
+		this.habilitarNivel3pais = habilitarNivel3pais;
+	}
+
+
 	public String pesquisarCliente() {
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("contentWidth", 650);
@@ -164,25 +175,20 @@ public class CadQuestionarioHeMB implements Serializable {
 	}
 
 	public String salvar() {
-		String msg = validarDados();
-		if (msg != null && msg.length() == 0) {
-			try {
-				cliente = clienteDao.salvar(cliente);
-				questionarioHe.setCliente(cliente);
-				questionarioHe.setUsuario(lead.getUsuario());
-				if (questionarioHe.getIdquestionariohe() == null) {
-					questionarioHe.setDataenvio(new Date());
-					questionarioHe.setSituacao("Processo");
-				}
-				questionarioHe = questionarioHeDao.salvar(questionarioHe);
-				Mensagem.lancarMensagemInfo("Questionario salvo com sucesso!", "");
-				salvarHistoricoLead();
-				cadastrado = true;
-				return "";
-			} catch (SQLException e) {
+		try {
+			cliente = clienteDao.salvar(cliente);
+			questionarioHe.setCliente(cliente);
+			questionarioHe.setUsuario(lead.getUsuario());
+			if (questionarioHe.getIdquestionariohe() == null) {
+				questionarioHe.setDataenvio(new Date());
+				questionarioHe.setSituacao("Processo");
 			}
-		}else {
-			Mensagem.lancarMensagemInfo(msg, "");
+			questionarioHe = questionarioHeDao.salvar(questionarioHe);
+			Mensagem.lancarMensagemInfo("Questionario salvo com sucesso!", "");
+			salvarHistoricoLead();
+			cadastrado = true;
+			return "";
+		} catch (SQLException e) {
 		}
 		return "";
 	}
@@ -190,77 +196,18 @@ public class CadQuestionarioHeMB implements Serializable {
 	
 	public void verificarNivel() {
 		if (questionarioHe.getPais1().equalsIgnoreCase("Portugal")) {
-			habilitarNivel3  = true;
-			habilitarNivel12 = false;
+			habilitarNivel3  = false;
 		}else {
-			habilitarNivel12 = true;
-			habilitarNivel3 = false;
+			habilitarNivel3 = true;
 		}
 	}
 	
-	
-	public String  validarDados() {
-		String msg = "";
-		if (cliente == null || cliente.getIdcliente() == null) {
-			 msg = msg + "Cliente n�o informado";
+	public void verificarNivel2() {
+		if (questionarioHe.getPais2().equalsIgnoreCase("Portugal")) {
+			habilitarNivel3pais  = false;
+		}else {
+			habilitarNivel3pais = true;
 		}
-		
-		if (questionarioHe.getDiplomas() == null || questionarioHe.getDiplomas().length() <= 0) {
-			msg = msg + "Informe o nome do curso; \n \n";
-		}
-		
-		if (questionarioHe.getNivelcetificado() == null || questionarioHe.getNivelcetificado().length() <= 0) {
-			msg = msg + "Informe o Nivel mais alto de escolaridade no Brasil; \n \n";
-		}
-		
-		if (questionarioHe.getOntuacaotoefl() == null || questionarioHe.getOntuacaotoefl().length() <= 0) {
-			msg = msg + "Informe a Pontua��o no teste de profici�ncia ou teste online; \n \n";
-		}
-		
-		if (questionarioHe.getOcupacao1() == null || questionarioHe.getOcupacao1().length() <= 0) {
-			msg = msg + "Informe Descreva suas duas �ltimas principais ocupa��es profissionais; \n \n";
-		}
-		
-		
-		if (questionarioHe.getPrograma() == null || questionarioHe.getPrograma().length() <= 0) {
-			msg = msg + "Informe Programa / �rea de interesse; \n \n";
-		}
-		
-		if (questionarioHe.getNivelcertificadointeresse() == null || questionarioHe.getNivelcertificadointeresse().length() <= 0) {
-			msg = msg + "Informe N�vel de Certifica��o de interesse; \n \n";
-		}
-		
-		
-		if (questionarioHe.getPais1() == null || questionarioHe.getPais1().length() <=0) {
-			msg = msg + "Informe o Destino em que prefere estudar; \n \n";
-		}
-		
-		
-		if (questionarioHe.getDataprograma() == null) {
-			msg = msg + "Informe Data aproximada do Programa; \n \n";
-		}
-		
-		if (questionarioHe.getPrecisatrabalahar() == null || questionarioHe.getPrecisatrabalahar().length() <= 0) {
-			msg = msg + "Informe Preciso trabalhar durante meu curso; \n \n";
-		}
-		
-		
-		if (questionarioHe.getObservacao() == null || questionarioHe.getObservacao().length() <= 0) {
-			msg = msg + "Informe as Observa��es e parecer do consultor; \n \n";
-		}
-		
-		if (questionarioHe.getPrecisatrabalahar() == null || questionarioHe.getPrecisatrabalahar().length() <= 0) {
-			msg = msg + "Informe 'Preciso trabalhar durante meu curso?'; \n \n";
-		}
-		
-		if (questionarioHe.getInteresseemimigrar() == null || questionarioHe.getInteresseemimigrar().length() <= 0) {
-			msg = msg + "Informe 'Tenho interesse em imigrar'; \n \n";
-		}
-		
-		if (questionarioHe.getVistotrabalho() == null || questionarioHe.getVistotrabalho().length() <= 0) {
-			msg = msg + "Informe 'Tenho interesse em visto de trabalho ap�s o curso'; \n \n";
-		}
-		return msg;
 	}
 	
 	
@@ -280,7 +227,7 @@ public class CadQuestionarioHeMB implements Serializable {
 	}
 	
 	
-public void salvarHistoricoLead() {
+	public void salvarHistoricoLead() {
 		Leadhistorico leadhistorico = new Leadhistorico();
 		leadhistorico.setCliente(cliente);
 		leadhistorico.setDatahistorico(new Date());
@@ -290,8 +237,8 @@ public void salvarHistoricoLead() {
 		try {
 			tipocontato = tipoContatoDao.consultar(sql);
 			leadhistorico.setTipocontato(tipocontato);
-			leadhistorico.setHistorico("Cadastor de um question�rio como id: " + questionarioHe.getIdquestionariohe() + ": "
-					+ " incluido no dia : " + Formatacao.ConvercaoDataPadrao(new Date()) + ", cliente: " + cliente.getNome());
+			leadhistorico.setHistorico("Cadastor de um questionário como id: " + questionarioHe.getIdquestionariohe() + ": "
+					+ " incluido no dia : " + Formatacao.ConvercaoDataPadrao(new Date()) + ", cliente: " + cliente.getNome() + ". Verifique o questionário e atualize a situação para 'Em Análise'");
 			leadhistorico.setTipoorcamento("");
 			leadhistorico.setIdorcamento(0);
 			leadHistoricoDao.salvar(leadhistorico);
@@ -299,6 +246,13 @@ public void salvarHistoricoLead() {
 		}
 	}
 	
+	
+	public void listarPaises() {
+			try {
+				listaPais = paisProdutoDao.listar(22);
+			} catch (SQLException e) {
+			}
+    }
 	
 
 }

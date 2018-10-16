@@ -111,6 +111,8 @@ public class Questionariohe implements Serializable {
 	private float notaredacao;
     @Column(name = "outranacionalidade")
 	private String outranacionalidade;
+    @Column(name = "cidade2")
+	private String cidade2;
 
     public Questionariohe() {
     	setSituacao("Pendente");
@@ -359,6 +361,14 @@ public class Questionariohe implements Serializable {
 
 	public void setNotaredacao(float notaredacao) {
 		this.notaredacao = notaredacao;
+	}
+
+	public String getCidade2() {
+		return cidade2;
+	}
+
+	public void setCidade2(String cidade2) {
+		this.cidade2 = cidade2;
 	}
 
 	@Override

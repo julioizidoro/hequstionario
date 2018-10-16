@@ -3,397 +3,418 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>AVALIAÇÃO DE PERFIL</title>
-		<h:outputScript name="/libs/jquery-1.12.3.min.js" />
+	<h:outputScript name="/libs/jquery-1.12.3.min.js" />
 	<!-- Bootstrap core CSS -->
-	<link href="resources/bootstrap/css/bootstrap.min.css"
-		rel="stylesheet" />
+	<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 	<!-- Font Awesome -->
 	<link href="resources/css/font-awesome.min.css" rel="stylesheet" />
 	<!-- Endless -->
 	<link href="resources/css/endless.min.css" rel="stylesheet" />
 	<link href="resources/css/endless-skin.css" rel="stylesheet" />
 	<link href="resources/css/css.css" rel="stylesheet" />
-	
+
 </h:head>
 
 <h:body>
-		<h:form id="questionario" style="font-size:11px;background:white;">
-			<div id="centro">
-			<p:dialog visible="#{cadQuestionarioHeMB.cadastrado}" closable="false"
-				header="QUESTIONÁRIO PREENCHIDO COM SUCESSO" id="panelCadastrado">
-					<p:outputLabel
-						value="EM BREVE ESTAREMOS ENTRANDO EM CONTATO!"
-						style="font-size:16px;" />
-					<br/><br/>
-					
-					<div align="center">
+	<h:form id="questionario" style="font-size:11px;background:white;">
+		<div id="centro">
+			<p:dialog visible="#{cadQuestionarioHeMB.cadastrado}"
+				closable="false" header="QUESTIONÁRIO PREENCHIDO COM SUCESSO"
+				id="panelCadastrado">
+				<p:outputLabel
+					value="Em breve seu consultor TravelMATE entrará em contato."
+					style="font-size:16px;" />
+				<br />
+				<br />
 
-						<p:commandButton value="Fechar"
-							action="#{cadQuestionarioHeMB.fechar()}"
-							style="font-size:12px;" update="panelCadastrado, @all"
-							icon="ui-icon-close" title="Fechar Notificação" />
-					</div>
+				<div align="center">
+
+					<p:commandButton value="Fechar"
+						action="#{cadQuestionarioHeMB.fechar()}" style="font-size:12px;"
+						update="panelCadastrado, @all" icon="ui-icon-close"
+						title="Fechar Notificação" />
+				</div>
 			</p:dialog>
-			<p:growl id="growl" showDetail="true" sticky="false"
-					 />
-					 <br/><br/>
-					 <img src="resources/img/logoRelatorio.jpg" width="300" style="margin-left:7%;"/>
-					 <img src="resources/img/iconeHE.png" width="80" style="margin-left:52%;"/>
-				<br /> 
-				<hr style="width:84%;" />
-				<br /><br />
-				<div align="center" style="background:#F8F8FF;width:84%;margin-left:8%;">
-					<p:outputLabel value="HIGHER EDUCATION"
-						style="font-size: 22px;color: #a5cd58;" />
-					<br/>
-					<p:outputLabel value="AVALIAÇÃO DE PERFIL"
-						style="font-size: 22px;color: #a5cd58;" />
-				</div>
-				<br/><br/>
-				<div align="right" style="width:92%;">
-					<p:commandButton action="#{cadQuestionarioHeMB.fechar()}"
-								style="margin-left:2%;font-size:14px;"
-								value="X" />
-				</div>
-				<div id="conteudo" style="margin-left:8%;width:84%;background:#F8F8FF;border: 2px solid;border-radius:4px;border-color:#DCDCDC">
-					<h4 style="margin:1%;color:#a5cd58;">Dados do Cliente</h4>
-					<h:panelGrid columns="2" style="width:95%;margin:1%;">
-					<p:outputLabel/>
-					<p:outputLabel/>
-						<p:outputLabel value="Cliente" for="idcliente" />
-						<p:outputLabel value="Data Nascimento" />
-	
-						<h:inputText styleClass="form-control"  id="idcliente" style="width:97%;" maxlength="100"
-							value="#{cadQuestionarioHeMB.cliente.nome}" />
-						
-						<p:inputMask mask="99/99/9999" styleClass="form-control" value="#{cadQuestionarioHeMB.cliente.dataNascimento}" style="width:35%;"> 
-							<f:convertDateTime pattern="dd/MM/yyyy"
-								timeZone="America/Sao_Paulo" />
-						</p:inputMask>
-	
-	
-						<p:outputLabel />
-						<p:outputLabel />
-	
-	
-						<p:outputLabel value="Telefone" />
-						<p:outputLabel value="CPF"/>
-	
-						<p:inputMask mask="(99)99999-9999" styleClass="form-control" value="#{cadQuestionarioHeMB.cliente.foneCelular}" style="width:35%;"> 
-							
-						</p:inputMask>
-						<p:inputMask mask="999.999.999-99" styleClass="form-control" value="#{cadQuestionarioHeMB.cliente.cpf}" style="width:35%;"> 
-							
-						</p:inputMask>
-						
-						
-						<p:outputLabel />
-						<p:outputLabel />
-	
-	
-						<p:outputLabel value="Possui Outra Nacionalidade ? Qual?" />
-						<p:outputLabel />
-	
-						<h:inputText styleClass="form-control" style="width:97%;" maxlength="100" 
-							value="#{cadQuestionarioHeMB.questionarioHe.outranacionalidade}" />
-						<p:outputLabel />
-	
-						<p:outputLabel />
-						<p:outputLabel />
-	
-	
-					</h:panelGrid>
-					<hr style="width:95%;float:left;margin-left:1%;"/>
-					<br />
-					<br/>
-					<h4 style="margin:1%;color:#a5cd58;">Informações Complementares</h4>
-					<h:panelGrid columns="2"
-						columnClasses="tamanhoavisos2, tamanhoavisos2"
-						style="width:100%;margin:1%;">
-						<p:outputLabel/>
-						<p:outputLabel/>
-						<p:outputLabel
-							value="Nível mais alto de escolaridade completo no Brasil"
-							for="nivel" />
-						<p:outputLabel value="Nome do Curso" />
-	
-						<p:selectOneMenu id="nivel"
-							value="#{cadQuestionarioHeMB.questionarioHe.nivelcetificado}"
-							style="width:280px;">
-							<f:selectItem itemLabel="Ensino Médio" itemValue="Ensino Médio" />
-							<f:selectItem itemLabel="Cursando a Graduação"
-								itemValue="Cursando a Graduação" />
-							<f:selectItem itemLabel="Graduação" itemValue="Graduação" />
-							<f:selectItem itemLabel="Pós-Graduação" itemValue="Pós-Graduação" />
-							<f:selectItem itemLabel="Mestrado/MBA" itemValue="Mestrado/MBA" />
-						</p:selectOneMenu>
-						<h:inputText styleClass="form-control"  id="diploma" style="width:85%;" maxlength="200"
-							placeholder="Diplomas e Certificações adquiridos no Brasil"
-							value="#{cadQuestionarioHeMB.questionarioHe.diplomas}" />
-	
-						<p:outputLabel />
-						<p:outputLabel />
-	
-						<p:outputLabel
-							value="Pontuação no teste de proficiência ou teste online"
-							for="pontuacao" />
-						<p:outputLabel
-							value="Resultado do Teste do enem nos últimos 3 anos? Qual a nota."
-							for="testeOnline" />
-						<h:inputText styleClass="form-control"  id="pontuacao" style="width:85%;"
-							value="#{cadQuestionarioHeMB.questionarioHe.ontuacaotoefl}"
-							maxlength="100" />
-						<p:selectOneMenu id="testeOnline"
-							value="#{cadQuestionarioHeMB.questionarioHe.resultadotesteonline}"
-							style="width:280px;">
-							<f:selectItem itemLabel="Selecione" itemValue="" />
-							<f:selectItem itemLabel="Sim" itemValue="Sim" />
-							<f:selectItem itemLabel="Não" itemValue="Não" />
+			<p:growl id="growl" showDetail="true" sticky="false" />
+			<br />
+			<br /> <img src="resources/img/logoRelatorio.jpg" width="300"
+				style="margin-left: 7%;" /> <img src="resources/img/iconeHE.png"
+				width="80" style="margin-left: 52%;" /> <br />
+			<hr style="width: 84%;" />
+			<br />
+			<br />
+			<div align="center"
+				style="background: #F8F8FF; width: 84%; margin-left: 8%;">
+				<p:outputLabel value="HIGHER EDUCATION"
+					style="font-size: 22px;color: #a5cd58;" />
+				<br />
+				<p:outputLabel value="AVALIAÇÃO DE PERFIL"
+					style="font-size: 22px;color: #a5cd58;" />
+			</div>
+			<br />
+			<br />
+			<div align="right" style="width: 92%;">
+				<p:commandButton action="#{cadQuestionarioHeMB.fechar()}"
+					style="margin-left:2%;font-size:14px;" value="X" />
+			</div>
+			<div id="conteudo"
+				style="margin-left: 8%; width: 84%; background: #F8F8FF; border: 2px solid; border-radius: 4px; border-color: #DCDCDC">
+				<h4 style="margin: 1%; color: #a5cd58;">Dados do Cliente</h4>
+				<h:panelGrid columns="2" style="width:95%;margin:1%;">
+					<p:outputLabel />
+					<p:outputLabel />
+					<p:outputLabel value="Cliente" for="idcliente" />
+					<p:outputLabel value="Data Nascimento" />
+
+					<h:inputText styleClass="form-control" id="idcliente"
+						style="width:97%;" maxlength="100"
+						value="#{cadQuestionarioHeMB.cliente.nome}" />
+
+					<p:inputMask mask="99/99/9999" styleClass="form-control"
+						value="#{cadQuestionarioHeMB.cliente.dataNascimento}"
+						style="width:35%;">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</p:inputMask>
+
+
+					<p:outputLabel />
+					<p:outputLabel />
+
+
+					<p:outputLabel value="Telefone" />
+					<p:outputLabel value="Possui Outra Nacionalidade ? Qual?" />
+
+					<p:inputMask mask="(99)99999-9999" styleClass="form-control"
+						value="#{cadQuestionarioHeMB.cliente.foneCelular}"
+						style="width:35%;">
+
+					</p:inputMask>
+
+					<h:inputText styleClass="form-control" style="width:97%;"
+						maxlength="100"
+						value="#{cadQuestionarioHeMB.questionarioHe.outranacionalidade}" />
+					<p:outputLabel />
+
+					<p:outputLabel />
+					<p:outputLabel />
+
+
+				</h:panelGrid>
+				<hr style="width: 95%; float: left; margin-left: 1%;" />
+				<br /> <br />
+				<h4 style="margin: 1%; color: #a5cd58;">Informações
+					Complementares</h4>
+				<h:panelGrid columns="2"
+					columnClasses="tamanhoavisos2, tamanhoavisos2"
+					style="width:100%;margin:1%;">
+					<p:outputLabel />
+					<p:outputLabel />
+					<p:outputLabel
+						value="Nível mais alto de escolaridade completo no Brasil"
+						for="nivel" />
+					<p:outputLabel value="Nome do Curso" />
+
+					<p:selectOneMenu id="nivel"
+						value="#{cadQuestionarioHeMB.questionarioHe.nivelcetificado}"
+						style="width:280px;">
+						<f:selectItem itemLabel="Ensino Médio" itemValue="Ensino Médio" />
+						<f:selectItem itemLabel="Cursando a Graduação"
+							itemValue="Cursando a Graduação" />
+						<f:selectItem itemLabel="Graduação" itemValue="Graduação" />
+						<f:selectItem itemLabel="Pós-Graduação" itemValue="Pós-Graduação" />
+						<f:selectItem itemLabel="Mestrado/MBA" itemValue="Mestrado/MBA" />
+						<f:selectItem itemLabel="Doutorado" itemValue="Doutorado" />
+					</p:selectOneMenu>
+					<h:inputText styleClass="form-control" id="diploma"
+						style="width:85%;" maxlength="200"
+						placeholder="Diplomas e Certificações adquiridos no Brasil"
+						value="#{cadQuestionarioHeMB.questionarioHe.diplomas}" />
+
+					<p:outputLabel />
+					<p:outputLabel />
+
+					<p:outputLabel
+						value="Pontuação no teste de proficiência ou teste online"
+						for="pontuacao" />
+					<p:outputLabel
+						value="Resultado do Teste do enem nos últimos 3 anos? Qual a nota."
+						for="testeOnline" />
+					<h:inputText styleClass="form-control" id="pontuacao"
+						style="width:85%;"
+						value="#{cadQuestionarioHeMB.questionarioHe.ontuacaotoefl}"
+						maxlength="100" />
+					<p:selectOneMenu id="testeOnline"
+						value="#{cadQuestionarioHeMB.questionarioHe.resultadotesteonline}"
+						style="width:280px;">
+						<f:selectItem itemLabel="Selecione" itemValue="" />
+						<f:selectItem itemLabel="Sim" itemValue="Sim" />
+						<f:selectItem itemLabel="Não" itemValue="Não" />
+						<p:ajax event="change"
+							listener="#{cadQuestionarioHeMB.verificarEnem()}"
+							update=" notaLinguagem, notaCienciaNatureza, notaCienciaHumanas, notaMatematica, notaRedacao" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<br />
+				<h:panelGrid columns="5" style="width:96%;margin:1%;">
+
+
+					<p:outputLabel />
+					<p:outputLabel />
+					<p:outputLabel />
+					<p:outputLabel />
+					<p:outputLabel />
+					<p:outputLabel value="Linguagem"
+						rendered="#{cadQuestionarioHeMB.habilitarNotas}"
+						id="notaLinguagemTexto" />
+					<p:outputLabel value="Ciências da Natureza"
+						id="notaCienciaNaturezaTexto"
+						rendered="#{cadQuestionarioHeMB.habilitarNotas}" />
+					<p:outputLabel value="Ciências Humanas"
+						id="notaCienciaHumanasTexto"
+						rendered="#{cadQuestionarioHeMB.habilitarNotas}" />
+					<p:outputLabel value="Matemática" id="notaMatematicaTexto"
+						rendered="#{cadQuestionarioHeMB.habilitarNotas}" />
+					<p:outputLabel value="Redação" id="notaRedacaoTexto"
+						rendered="#{cadQuestionarioHeMB.habilitarNotas}" />
+					<h:inputText styleClass="form-control" id="notaLinguagem"
+						style="width:85%;"
+						disabled="#{cadQuestionarioHeMB.habilitarNotas}"
+						value="#{cadQuestionarioHeMB.questionarioHe.notalinguagem}"
+						maxlength="100">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:inputText>
+					<h:inputText styleClass="form-control" id="notaCienciaNatureza"
+						style="width:85%;"
+						disabled="#{cadQuestionarioHeMB.habilitarNotas}"
+						value="#{cadQuestionarioHeMB.questionarioHe.notaciencianatureza}"
+						maxlength="100">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:inputText>
+					<h:inputText styleClass="form-control" id="notaCienciaHumanas"
+						style="width:85%;"
+						disabled="#{cadQuestionarioHeMB.habilitarNotas}"
+						value="#{cadQuestionarioHeMB.questionarioHe.notacienciahumanas}"
+						maxlength="100">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:inputText>
+					<h:inputText styleClass="form-control" id="notaMatematica"
+						style="width:85%;"
+						disabled="#{cadQuestionarioHeMB.habilitarNotas}"
+						value="#{cadQuestionarioHeMB.questionarioHe.notamatematica}"
+						maxlength="100">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</h:inputText>
+					<p:inputText styleClass="form-control" id="notaRedacao"
+						style="width:85%;"
+						disabled="#{cadQuestionarioHeMB.habilitarNotas}"
+						value="#{cadQuestionarioHeMB.questionarioHe.notaredacao}"
+						maxlength="100">
+						<f:convertNumber pattern="##,###,###,###.##" minFractionDigits="2" />
+					</p:inputText>
+				</h:panelGrid>
+				<br />
+				<h:panelGrid columns="1" style="width:100%;margin:1%;">
+
+					<p:outputLabel />
+					<p:outputLabel
+						value="Descreva suas duas últimas principais ocupações profissionais"
+						for="ocupacao1" />
+					<h:inputText styleClass="form-control" id="ocupacao1"
+						style="width:92.5%;"
+						value="#{cadQuestionarioHeMB.questionarioHe.ocupacao1}"
+						placeholder="Ocupação 1" maxlength="500" />
+					<p:outputLabel />
+					<h:inputText styleClass="form-control" id="ocupacao2"
+						style="width:92.5%;"
+						value="#{cadQuestionarioHeMB.questionarioHe.ocupacao2}"
+						placeholder="Ocupação 2" maxlength="500" />
+				</h:panelGrid>
+				<br />
+				<h:panelGrid columns="2" id="panelInformacoesNivel"
+					columnClasses="tamanhoavisos2, tamanhoavisos2"
+					style="width:100%;margin:1%;">
+
+					<p:outputLabel />
+					<p:outputLabel />
+					<p:outputLabel
+						value="Orçamento (Valor na moeda do destino, incluindo acomodação e programa por 1 ano)"
+						for="orcamento" />
+					<p:outputLabel value="Programa / Área de interesse" for="programa" />
+
+					<p:selectOneMenu id="orcamento"
+						value="#{cadQuestionarioHeMB.questionarioHe.orcamentomaximo}"
+						style="width:280px;">
+						<f:selectItem itemLabel="De $15,000 Até $25,000"
+							itemValue="De $15,000 Até $25,000" />
+						<f:selectItem itemLabel="Até $35,0000" itemValue="Até $35,0000" />
+						<f:selectItem itemLabel="Até $45,000" itemValue="Até $45,000" />
+						<f:selectItem itemLabel="Até $50,000" itemValue="Até $50,000" />
+						<f:selectItem itemLabel="Mais de $50,000"
+							itemValue="Mais de $50,000" />
+					</p:selectOneMenu>
+
+					<h:inputText styleClass="form-control" id="programa"
+						style="width:85%;" maxlength="100"
+						value="#{cadQuestionarioHeMB.questionarioHe.programa}" />
+
+
+					<p:outputLabel />
+					<p:outputLabel />
+
+					<p:outputLabel value="Destino em que prefere estudar" for="pais" />
+					<p:outputLabel />
+
+					<h:panelGrid columns="2" style="width:85%;">
+						<p:selectOneMenu id="pais"
+							value="#{cadQuestionarioHeMB.questionarioHe.pais1}"
+							style="width:170px;" filter="true" filterMatchMode="startsWith"
+							panelStyle="width:180px">
+							<f:selectItem itemLabel="Opção 1" />
+							<f:selectItems value="#{cadQuestionarioHeMB.listaPais}"
+								var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais.nome}" />
 							<p:ajax event="change"
-								listener="#{cadQuestionarioHeMB.verificarEnem()}"
-								update=" notaLinguagem, notaCienciaNatureza, notaCienciaHumanas, notaMatematica, notaRedacao" />
+								listener="#{cadQuestionarioHeMB.verificarNivel()}"
+								update="panelCidadeCertificado, cidade, nivelCertificado" />
 						</p:selectOneMenu>
+						<p:inputText placeholder="Cidade" styleClass="form-control"
+							id="cidade" style="width:85%;" maxlength="100"
+							disabled="#{cadQuestionarioHeMB.habilitarNivel3}"
+							value="#{cadQuestionarioHeMB.questionarioHe.cidade}" />
 					</h:panelGrid>
-					<br/>
-					<h:panelGrid columns="5" style="width:96%;margin:1%;">
-							
-						
-						<p:outputLabel/>
-						<p:outputLabel/>
-						<p:outputLabel/>
-						<p:outputLabel/>
-						<p:outputLabel/>
-							<p:outputLabel value="Linguagem" rendered="#{cadQuestionarioHeMB.habilitarNotas}"
-								id="notaLinguagemTexto" />
-							<p:outputLabel value="Ciências da Natureza" id="notaCienciaNaturezaTexto" rendered="#{cadQuestionarioHeMB.habilitarNotas}"/>
-							<p:outputLabel value="Ciências Humanas" id="notaCienciaHumanasTexto" rendered="#{cadQuestionarioHeMB.habilitarNotas}"/>
-							<p:outputLabel value="Matemática" id="notaMatematicaTexto" rendered="#{cadQuestionarioHeMB.habilitarNotas}"/>
-							<p:outputLabel value="Redação" id="notaRedacaoTexto" rendered="#{cadQuestionarioHeMB.habilitarNotas}"/>
-							<h:inputText styleClass="form-control"  id="notaLinguagem" style="width:85%;" disabled="#{cadQuestionarioHeMB.habilitarNotas}"
-								value="#{cadQuestionarioHeMB.questionarioHe.notalinguagem}"
-								maxlength="100" >
-								<f:convertNumber pattern="##,###,###,###.##"
-										minFractionDigits="2" />
-							</h:inputText>
-							<h:inputText styleClass="form-control"  id="notaCienciaNatureza" style="width:85%;" disabled="#{cadQuestionarioHeMB.habilitarNotas}"
-								value="#{cadQuestionarioHeMB.questionarioHe.notaciencianatureza}"
-								maxlength="100" >
-								<f:convertNumber pattern="##,###,###,###.##"
-										minFractionDigits="2" />
-							</h:inputText>
-							<h:inputText styleClass="form-control"  id="notaCienciaHumanas" style="width:85%;" disabled="#{cadQuestionarioHeMB.habilitarNotas}"
-								value="#{cadQuestionarioHeMB.questionarioHe.notacienciahumanas}"
-								maxlength="100" >
-								<f:convertNumber pattern="##,###,###,###.##"
-										minFractionDigits="2" />
-							</h:inputText>
-							<h:inputText styleClass="form-control"  id="notaMatematica" style="width:85%;" disabled="#{cadQuestionarioHeMB.habilitarNotas}"
-								value="#{cadQuestionarioHeMB.questionarioHe.notamatematica}"
-								maxlength="100" >
-								<f:convertNumber pattern="##,###,###,###.##"
-										minFractionDigits="2" />
-							</h:inputText>
-							<p:inputText styleClass="form-control"  id="notaRedacao" style="width:85%;" disabled="#{cadQuestionarioHeMB.habilitarNotas}"
-								value="#{cadQuestionarioHeMB.questionarioHe.notaredacao}"
-								maxlength="100" >
-								<f:convertNumber pattern="##,###,###,###.##"
-										minFractionDigits="2" />
-							</p:inputText>
-					</h:panelGrid>
-					<br />
-					<h:panelGrid columns="1" style="width:100%;margin:1%;">
-					
-						<p:outputLabel/>
-						<p:outputLabel
-							value="Descreva suas duas últimas principais ocupações profissionais"
-							for="ocupacao1" />
-						<h:inputText styleClass="form-control"  id="ocupacao1" style="width:92.5%;"
-							value="#{cadQuestionarioHeMB.questionarioHe.ocupacao1}"
-							placeholder="Ocupação 1" maxlength="500" />
-						<p:outputLabel />
-						<h:inputText styleClass="form-control"  id="ocupacao2" style="width:92.5%;"
-							value="#{cadQuestionarioHeMB.questionarioHe.ocupacao2}"
-							placeholder="Ocupação 2" maxlength="500" />
-					</h:panelGrid>
-					<br />
-					<h:panelGrid columns="2" id="panelInformacoesNivel"
-						columnClasses="tamanhoavisos2, tamanhoavisos2"
-						style="width:100%;margin:1%;">
-						
-						<p:outputLabel/>
-						<p:outputLabel/>
-						<p:outputLabel value="Orçamento (Valor na moeda do destino, incluindo acomodação e programa por 1 ano)" for="orcamento" />
-						<p:outputLabel value="Destino em que prefere estudar" for="pais" />
-	
-						<p:selectOneMenu id="orcamento"
-							value="#{cadQuestionarioHeMB.questionarioHe.orcamentomaximo}"
-							style="width:280px;">
-							<f:selectItem itemLabel="De $15,000 Até $25,000" itemValue="De $15,000 Até $25,000" />
-							<f:selectItem itemLabel="Até $25,0000" itemValue="Até $25,0000" />
-							<f:selectItem itemLabel="Até $35,0000" itemValue="Até $35,0000" />
-							<f:selectItem itemLabel="Até $45,000" itemValue="Até $45,000" />
-							<f:selectItem itemLabel="Até $50,000" itemValue="Até $50,000" />
-							<f:selectItem itemLabel="Mais de $50,000"
-								itemValue="Mais de $50,000" />
+					<h:panelGrid columns="2" style="width:85%;">
+						<p:selectOneMenu id="pais2"
+							value="#{cadQuestionarioHeMB.questionarioHe.pais2}"
+							style="width:170px;margin-left:2%;" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:180px">
+							<f:selectItem itemLabel="Opção 2" />
+							<f:selectItems value="#{cadQuestionarioHeMB.listaPais}"
+								var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais.nome}" />
+							<p:ajax event="change"
+								listener="#{cadQuestionarioHeMB.verificarNivel2()}"
+								update="panelCidadeCertificado,  cidade2, nivelCertificado" />
 						</p:selectOneMenu>
-						<h:panelGroup>
-							<p:selectOneMenu id="pais"
-								value="#{cadQuestionarioHeMB.questionarioHe.pais1}"
-								style="width:170px;" filter="true" filterMatchMode="startsWith"
-								panelStyle="width:180px">
-								<f:selectItem itemLabel="Opção 1" />
-								<f:selectItems value="#{cadQuestionarioHeMB.listaPais}"
-									var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais.nome}" />
-								<p:ajax event="change"
-									listener="#{cadQuestionarioHeMB.verificarNivel()}"
-									update="panelCidadeCertificado, nivelInteresse3, cidade, nivelCertificado" />
-							</p:selectOneMenu>
-							<p:selectOneMenu id="pais2"
-								value="#{cadQuestionarioHeMB.questionarioHe.pais2}"
-								style="width:170px;margin-left:2%;" filter="true"
-								filterMatchMode="startsWith" panelStyle="width:180px">
-								<f:selectItem itemLabel="Opção 2" />
-								<f:selectItems value="#{cadQuestionarioHeMB.listaPais}"
-									var="cpais" itemLabel="#{cpais.nome}" itemValue="#{cpais.nome}" />
-							</p:selectOneMenu>
-						</h:panelGroup>
-	
-						<p:outputLabel />
-						<p:outputLabel />
-	
-						<p:outputLabel value="Programa / Área de interesse" for="programa" />
-						<p:outputLabel id="nivelCertificado"
-							value="Nível de Certificação de interesse" for="nivelInteresse" />
-	
-						<h:inputText styleClass="form-control"  id="programa" style="width:85%;" maxlength="100"
-							value="#{cadQuestionarioHeMB.questionarioHe.programa}" />
-						<h:panelGroup>
-						
-							<h:panelGrid id="panelCidadeCertificado" style="width:64%;" columns="2">
-								<p:selectOneMenu id="nivelInteresse"
-									rendered="#{cadQuestionarioHeMB.habilitarNivel12}"
-									value="#{cadQuestionarioHeMB.questionarioHe.nivelcertificadointeresse}"
-									style="width:170px;">
-									<f:selectItem itemLabel="Opção 1" itemValue="" />
-									<f:selectItem itemLabel="Certificado(1 ano)"
-										itemValue="Certificado(1 ano)" />
-									<f:selectItem itemLabel="Diploma(2 a 3 anos)"
-										itemValue="Diploma(2 a 3 anos)" />
-									<f:selectItem itemLabel="Bacharelado(4 anos)"
-										itemValue="Bacharelado(4 anos)" />
-									<f:selectItem itemLabel="Pós-Graduação(1 a 2 anos)"
-										itemValue="Pós-Graduação(1 a 2 anos)" />
-									<f:selectItem itemLabel="Mestrado(1 a 2 anos)"
-										itemValue="Mestrado(1 a 2 anos)" />
-								</p:selectOneMenu>
-								<p:selectOneMenu id="nivelInteresse2"
-									rendered="#{cadQuestionarioHeMB.habilitarNivel12}"
-									value="#{cadQuestionarioHeMB.questionarioHe.nivelcertificadointeresse2}"
-									style="width:170px;margin-left:2%;">
-									<f:selectItem itemLabel="Opção 2" itemValue="" />
-									<f:selectItem itemLabel="Certificado(1 ano)"
-										itemValue="Certificado(1 ano)" />
-									<f:selectItem itemLabel="Diploma(2 a 3 anos)"
-										itemValue="Diploma(2 a 3 anos)" />
-									<f:selectItem itemLabel="Bacharelado(4 anos)"
-										itemValue="Bacharelado(4 anos)" />
-									<f:selectItem itemLabel="Pós-Graduação(1 a 2 anos)"
-										itemValue="Pós-Graduação(1 a 2 anos)" />
-									<f:selectItem itemLabel="Mestrado(1 a 2 anos)"
-										itemValue="Mestrado(1 a 2 anos)" />
-								</p:selectOneMenu>
-									<p:selectOneMenu id="nivelInteresse3"
-										rendered="#{cadQuestionarioHeMB.habilitarNivel3}"
-										value="#{cadQuestionarioHeMB.questionarioHe.nivelcertificadointeresse}"
-										style="width:170px;">
-										<f:selectItem itemLabel="Opção 1" itemValue="" />
-										<f:selectItem itemLabel="Licenciatura" itemValue="Licenciatura" />
-										<f:selectItem itemLabel="Mestrado" itemValue="Mestrado" />
-										<f:selectItem itemLabel="Pós-Graduação" itemValue="Pós-Graduação" />
-									</p:selectOneMenu>
-									<p:selectOneMenu id="cidade"
-										rendered="#{cadQuestionarioHeMB.habilitarNivel3}"
-										value="#{cadQuestionarioHeMB.questionarioHe.cidade}"
-										style="width:170px;margin-left:2%;">
-										<f:selectItem itemLabel="Cidade" itemValue="" />
-										<f:selectItem itemLabel="Lisboa" itemValue="Lisboa" />
-										<f:selectItem itemLabel="Porto" itemValue="Porto" />
-										<f:selectItem itemLabel="Aveiro" itemValue="Aveiro" />
-										<f:selectItem itemLabel="Outros" itemValue="Outros" />
-									</p:selectOneMenu>
-							</h:panelGrid>
-						</h:panelGroup>
+						<p:inputText styleClass="form-control" placeholder="Cidade"
+							id="cidade2" style="width:100%;" maxlength="100"
+							disabled="#{cadQuestionarioHeMB.habilitarNivel3pais}"
+							value="#{cadQuestionarioHeMB.questionarioHe.cidade2}" />
 					</h:panelGrid>
-					<br />
-					<h:panelGrid columns="2"
-						columnClasses="tamanhoavisos2, tamanhoavisos2"
-						style="width:100%;margin:1%;">
-						
-						<p:outputLabel/>
-						<p:outputLabel/>
-						<p:outputLabel value="Data aproximada do Programa" for="data" />
-						<p:outputLabel value="Preciso trabalhar durante meu curso?"
-							for="trabalhar" />
-						<p:inputMask mask="99/99/9999" id="data" styleClass="form-control" value="#{cadQuestionarioHeMB.questionarioHe.dataprograma}" style="width:35%;"> 
+				</h:panelGrid>
+				<br/> 
+				<h:panelGrid columns="3" style="width:100%;margin-left:1%;">
+					<p:outputLabel id="nivelCertificado"
+						value="Nível de Certificação de interesse" for="nivelInteresse" />
+
+					<p:outputLabel value="Data aproximada do Programa" for="data" />
+					<p:outputLabel value="Preciso trabalhar durante meu curso?"
+						for="trabalhar" />
+					<h:panelGroup>
+
+						<h:panelGrid id="panelCidadeCertificado" style="width:64%;"
+							columns="2">
+							<p:selectOneMenu id="nivelInteresse"
+								value="#{cadQuestionarioHeMB.questionarioHe.nivelcertificadointeresse}"
+								style="width:170px;">
+								<f:selectItem itemLabel="Opção 1" itemValue="" />
+								<f:selectItem itemLabel="Certificado(1 ano)"
+									itemValue="Certificado(1 ano)" />
+								<f:selectItem itemLabel="Diploma(2 a 3 anos)"
+									itemValue="Diploma(2 a 3 anos)" />
+								<f:selectItem itemLabel="Bacharelado(4 anos)"
+									itemValue="Bacharelado(4 anos)" />
+								<f:selectItem itemLabel="Pós-Graduação(1 a 2 anos)"
+									itemValue="Pós-Graduação(1 a 2 anos)" />
+								<f:selectItem itemLabel="Mestrado(1 a 2 anos)"
+									itemValue="Mestrado(1 a 2 anos)" />
+							</p:selectOneMenu>
+							<p:selectOneMenu id="nivelInteresse2"
+								value="#{cadQuestionarioHeMB.questionarioHe.nivelcertificadointeresse2}"
+								style="width:170px;margin-left:2%;">
+								<f:selectItem itemLabel="Opção 2" itemValue="" />
+								<f:selectItem itemLabel="Certificado(1 ano)"
+									itemValue="Certificado(1 ano)" />
+								<f:selectItem itemLabel="Diploma(2 a 3 anos)"
+									itemValue="Diploma(2 a 3 anos)" />
+								<f:selectItem itemLabel="Bacharelado(4 anos)"
+									itemValue="Bacharelado(4 anos)" />
+								<f:selectItem itemLabel="Pós-Graduação(1 a 2 anos)"
+									itemValue="Pós-Graduação(1 a 2 anos)" />
+								<f:selectItem itemLabel="Mestrado(1 a 2 anos)"
+									itemValue="Mestrado(1 a 2 anos)" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+					</h:panelGroup>
+						<p:inputMask mask="99/99/9999" id="data" styleClass="form-control"
+							value="#{cadQuestionarioHeMB.questionarioHe.dataprograma}"
+							style="width:72%;">
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 						</p:inputMask>
 						<p:selectOneMenu id="trabalhar"
 							value="#{cadQuestionarioHeMB.questionarioHe.precisatrabalahar}"
 							style="width:280px;">
-							<f:selectItem itemLabel="Seleciona" itemValue="" noSelectionOption="true"/>
+							<f:selectItem itemLabel="Seleciona" itemValue=""
+								noSelectionOption="true" />
 							<f:selectItem itemLabel="Sim" itemValue="Sim" />
 							<f:selectItem itemLabel="Não" itemValue="Não" />
 						</p:selectOneMenu>
-	
-						<p:outputLabel />
-						<p:outputLabel />
-	
-						<p:outputLabel value="Tenho interesse em Imigrar?" for="imigrar" />
-						<p:outputLabel
-							value="Tenho interesse em visto de trabalho após o curso?"
-							for="vistoTrabalho" />
-						<p:selectOneMenu id="imigrar"
-							value="#{cadQuestionarioHeMB.questionarioHe.interesseemimigrar}"
-							style="width:280px;">
-							<f:selectItem itemLabel="Seleciona" itemValue="" noSelectionOption="true"/>
-							<f:selectItem itemLabel="Sim" itemValue="Sim" />
-							<f:selectItem itemLabel="Não" itemValue="Não" />
-						</p:selectOneMenu>
-						<p:selectOneMenu id="vistoTrabalho"
-							value="#{cadQuestionarioHeMB.questionarioHe.vistotrabalho}"
-							style="width:280px;">
-							<f:selectItem itemLabel="Seleciona" itemValue="" noSelectionOption="true"/>
-							<f:selectItem itemLabel="Sim" itemValue="Sim" />
-							<f:selectItem itemLabel="Não" itemValue="Não" />
-						</p:selectOneMenu>
-					</h:panelGrid>
-					<br />
-					<h:panelGrid style="width:92%;margin:1%;">
-					
-						<p:outputLabel/>
-						<p:outputLabel value="Observações e parecer do consultor"
-							style="font-size: 11px" />
-						<p:inputTextarea styleClass="form-control" id="observacao" cols="40" rows="6"
-							value="#{cadQuestionarioHeMB.questionarioHe.observacao}" />
-					</h:panelGrid>
-					<br/>
-					<hr />
-					<br/>
-					<div align="center" >
-						<p:commandButton action="#{cadQuestionarioHeMB.salvar()}" icon="ui-icon-check"
-							value="Confirmar" style="font-size:16px;" update=":questionario:growl, panelCadastrado"/>
-						<p:commandButton action="#{cadQuestionarioHeMB.fechar()}"
-							style="margin-left:2%;font-size:16px;" icon="ui-icon-close"
-							value="Cancelar" />
-					</div><br/><br/>
+				</h:panelGrid>
+				<br />
+				<h:panelGrid columns="2"
+					columnClasses="tamanhoavisos2, tamanhoavisos2"
+					style="width:85%;margin:1%;">
+
+					<p:outputLabel value="Tenho interesse em Imigrar?" for="imigrar" />
+					<p:outputLabel
+						value="Tenho interesse em visto de trabalho após o curso?"
+						for="vistoTrabalho" />
+					<p:selectOneMenu id="imigrar"
+						value="#{cadQuestionarioHeMB.questionarioHe.interesseemimigrar}"
+						style="width:280px;">
+						<f:selectItem itemLabel="Seleciona" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItem itemLabel="Sim" itemValue="Sim" />
+						<f:selectItem itemLabel="Não" itemValue="Não" />
+					</p:selectOneMenu>
+					<p:selectOneMenu id="vistoTrabalho"
+						value="#{cadQuestionarioHeMB.questionarioHe.vistotrabalho}"
+						style="width:280px;">
+						<f:selectItem itemLabel="Seleciona" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItem itemLabel="Sim" itemValue="Sim" />
+						<f:selectItem itemLabel="Não" itemValue="Não" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<br />
+				<h:panelGrid style="width:92%;margin:1%;">
+
+					<p:outputLabel />
+					<p:outputLabel value="Observações e parecer do consultor"
+						style="font-size: 11px" />
+					<p:inputTextarea styleClass="form-control" id="observacao"
+						cols="40" rows="6"
+						value="#{cadQuestionarioHeMB.questionarioHe.observacao}" />
+				</h:panelGrid>
+				<br />
+				<hr />
+				<br />
+				<div align="center">
+					<p:commandButton action="#{cadQuestionarioHeMB.salvar()}"
+						icon="ui-icon-check" value="Confirmar" style="font-size:16px;"
+						update=":questionario:growl, panelCadastrado" />
+					<p:commandButton action="#{cadQuestionarioHeMB.fechar()}"
+						style="margin-left:2%;font-size:16px;" icon="ui-icon-close"
+						value="Cancelar" />
 				</div>
-				<br/> 
+				<br />
+				<br />
 			</div>
-		</h:form>
-	</h:body>
+			<br />
+		</div>
+	</h:form>
+</h:body>
 </html>
