@@ -284,6 +284,9 @@ public class CadQuestionarioHeMB implements Serializable {
 						.listar("SELECT c FROM Cidadepaisproduto c WHERE c.paisproduto.produtos.idprodutos=22 and c.paisproduto.pais.nome like '%"+ questionarioHe.getPais1() +"%'"
 								 + " order by c.cidade.nome");
 				listaCidade = new ArrayList<Cidade>();
+				if (listaCidadeProduto == null) {
+					listaCidadeProduto = new ArrayList<Cidadepaisproduto>();
+				}
 				for (int i = 0; i < listaCidadeProduto.size(); i++) {
 					listaCidade.add(listaCidadeProduto.get(i).getCidade());
 				}
@@ -300,6 +303,9 @@ public class CadQuestionarioHeMB implements Serializable {
 						.listar("SELECT c FROM Cidadepaisproduto c WHERE c.paisproduto.produtos.idprodutos=22 and c.paisproduto.pais.nome like '%"+ questionarioHe.getPais2() +"%'"
 								 + " order by c.cidade.nome");
 				listaCidade2 = new ArrayList<Cidade>();
+				if (listaCidadeProduto == null) {
+					listaCidadeProduto = new ArrayList<Cidadepaisproduto>();
+				}
 				for (int i = 0; i < listaCidadeProduto.size(); i++) {
 					listaCidade2.add(listaCidadeProduto.get(i).getCidade());
 				}
